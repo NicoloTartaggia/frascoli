@@ -1,0 +1,67 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Organizza un evento | Frascoli Bacaro',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="hero-locale hero-eventi">
+
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color-interpolation-filters="sRGB">
+            <filter id="fluted" primitiveUnits="objectBoundingBox">
+                <feImage x="0" y="0" in="blur_0" result="image_0" crossorigin="anonymous" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' color-interpolation-filters='sRGB'>
+        <g>
+          <rect width='1' height='1' fill='black' />
+          <rect width='1' height='1' fill='url(%23red)' style='mix-blend-mode:screen' />
+          <rect width='1' height='1' fill='url(%23green)' style='mix-blend-mode:screen' />
+          <rect width='1' height='1' fill='url(%23yellow)' style='mix-blend-mode:screen' />
+        </g>
+        <defs>
+          <radialGradient id='yellow' cx='0' cy='0' r='1' >
+            <stop stop-color='yellow' />
+            <stop stop-color='yellow' offset='1' stop-opacity='0' />
+          </radialGradient>
+          <radialGradient id='green' cx='1' cy='0' r='1' >
+            <stop stop-color='green' />
+            <stop stop-color='green' offset='1' stop-opacity='0' />
+          </radialGradient>
+          <radialGradient id='red' cx='0' cy='1' r='1' >
+            <stop stop-color='red' />
+            <stop stop-color='red' offset='1' stop-opacity='0' />
+          </radialGradient>
+        </defs>
+      </svg>" preserveAspectRatio="none meet" width=".02" height="1" />
+                <feTile in="image_0" result="tile_0" />
+                <feGaussianBlur stdDeviation=".002" edgeMode="none" in="tile_0" result="bar_smoothness" x="0" y="0" />
+                <feGaussianBlur stdDeviation=".03" edgeMode="none" in="SourceGraphic" result="blur_glass" />
+                <feDisplacementMap scale=".08" xChannelSelector="R" yChannelSelector="G" in="SourceGraphic" in2="bar_smoothness" result="displacement_0" />
+            </filter>
+        </svg>
+
+        <video autoplay="" loop="" muted="" playsinline="" defaultmuted="" preload="none">
+            {# <source src="{{ asset('assets/static/hero1.webm') }}" type="video/webm"> #}
+            <source src="{{ asset('assets/static/hero4.mp4') }}" type="video/mp4">
+        </video>
+
+        <div class="glass"></div>
+
+
+        <h1 class="condensed">Festeggia con noi</h1>
+        <p>
+            Il nostro bacaro può essere lo spazio ideale per la tua festa. Mettiamo a disposizione il
+            locale per feste di lauree, compleanni e altri eventi di gruppo. Allegria e socialità da
+            Frascoli Bacaro sono le benvenute. Concordiamo con te il menu e le pietanze per
+            garantirti la massima ospitalità.
+        </p>
+
+        <a class="btn-main" data-no-swup href="{{ path('contatti') }}">
+            Contattaci
+        </a>
+    </div>
+
+
+{% endblock %}

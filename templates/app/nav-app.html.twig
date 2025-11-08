@@ -1,0 +1,67 @@
+{% set current_path = app.request.get('_route') %}
+<nav class="main {% if current_path in ['home'] %}main_home{% elseif current_path in ['locale'] %}main_locale{% endif %}">
+    <ul class="nl">
+        <li class="l" onclick="toggleMenu()">Locali</li>
+        <li>|</li>
+        <li>
+            <a data-swup-transition="left" class="{{ current_path == 'viaggio' ? 'active'}}" href="{{ path('viaggio') }}" >
+                <span class="nav-help"></span>
+                Viaggio
+            </a>
+        </li>
+        <li>
+            <a data-swup-transition="left" class="{{ current_path == 'cucina' ? 'active'}}" href="{{ path('cucina') }}">
+                <span class="nav-help"></span>
+                Cucina
+            </a>
+        </li>
+        {#
+        <li>
+            <a data-swup-transition="left" class="{{ current_path == 'canaeto' ? 'active'}} btn_disabled" href="{{ path('home') }}">
+                <span class="nav-help"></span>
+                Canaeto
+            </a>
+        </li>
+        #}
+    </ul>
+
+    <a  data-swup-transition="left" class="nc" href="{{ path('home') }}">
+        <img src="{{ asset('assets/static/logo-black.png') }}" alt="">
+    </a>
+
+    <div class="nr">
+        <a data-swup-transition="left" class="btn-main" href="{{ path('prenota') }}">Prenota</a>
+    </div>
+</nav>
+
+<div id="m">
+    <p class="l close" onclick="closeMenu()">Chiudi</p>
+
+    <ul>
+        <li><p class="sub">LOCALI</p></li>
+        <li>
+            <a href="{{ path('locale', {'slug' : 'frascoli-padova'}) }}">Frascoli Bacaro Padova</a>
+            <br>
+            <a class="secondary" href="{{ path('locale', {'slug' : 'frascoli-padova'}) }}">SCOPRI</a> <a class="secondary" data-no-swup href="{{ path('memu_singolo', {'slug' : 'frascoli-padova'}) }}">Menù</a> <a class="secondary" href="{{ path('prenota_singolo', {'slug' : 'frascoli-padova'}) }}">Prenota</a>
+        </li>
+        {# <li><a href="{{ path('locale', {'slug' : 'frascoli-venezia'}) }}">Frascoli Bacaro Venezia</a></li>  #}
+        <li>
+            <a href="{{ path('locale', {'slug' : 'frascolino'}) }}">Frascolino Padova</a>
+            <br>
+            <a class="secondary" href="{{ path('locale', {'slug' : 'frascolino'}) }}">SCOPRI</a> <a class="secondary" data-no-swup href="{{ path('memu_singolo', {'slug' : 'frascolino'}) }}">Menù</a> {# <a class="secondary" href="{{ path('prenota_singolo', {'slug' : 'frascolino'}) }}">Prenota</a>  #}
+        </li>
+    </ul>
+
+    <ul class="onlym">
+        <li><p class="sub">DISCOVER</p></li>
+        <li><a href="{{ path('viaggio') }}">IL VIAGGIO</a></li>
+        {# <li><a href="{{ path('locale', {'slug' : 'frascoli-venezia'}) }}">Frascoli Bacaro Venezia</a></li>  #}
+        <li><a href="{{ path('cucina') }}">LA NOSTRA CUCINA</a></li>
+    </ul>
+
+    <div class="m-foot">
+        <a href="{{ path('contatti') }}">Contatti</a>
+        <a href="{{ path('organizza_evento') }}">Organizza un evento</a>
+        <a href="{{ path('credits') }}">Credits</a>
+    </div>
+</div>

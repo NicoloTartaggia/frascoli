@@ -1,0 +1,50 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {titolo: locale.metaTitle, descrizione: locale.metaDescription}) }}
+{% endblock %}
+
+{% block body %}
+
+    {{ include('app/locali/locale-head.html.twig') }}
+
+    <section >
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+        <p class="sub">CHI NO MAGNA GÀ MAGNÀ</p>
+        <h2 class="condensed">Cicchetti tipici e ombre</h2>
+        <p class="piw">
+            I cicchetti rappresentano l’alternativa veneziana allo spunciotto padovano, una varietà di
+            spuntini a base di pesce o di carne. Tra le nostre specialità tipiche trovate il crostino
+            di baccalà mantecato e di saor alla veneziana, le polpette di carne, di pesce e di verdure,
+            immancabili nei bacari. Abbiamo il Select per un autentico spritz veneziano e altri spritz a
+            base di prodotti del territorio come Luxardo. Per coloro che cercano qualcosa di nuovo,
+            Frascolino è il luogo ideale per degustare l’aperitivo creato da noi: il Canaèto.
+        </p>
+
+
+        <div class="grid-locale">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_01.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_02.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_03.jpg') }}" alt="">
+        </div>
+    </section>
+
+
+    <section class="fh">
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+        <div class="fhc">
+            <p class="sub">SE NO XE PAN XE POENTA</p>
+            <h2 class="condensed">Non solo cicchetteria padovana</h2>
+            <p class="piw">
+                L’aperitivo è un appuntamento fisso per abitanti, studenti e turisti della città di Padova e con Frascolino abbiamo dato vita ad un luogo accessibile dove assaporarlo in compagnia senza rinunciare alla qualità. Frascolino è anche il locale dove trascorrere un pranzo veloce o una pausa gustando cibi e piccoli piatti della gastronomia veneziana. Infine, ci sarà sempre il pentolone con nostro iconico folpo bollito, condito con un battuto di olio e prezzemolo.
+            </p>
+            <a class="btn-main" href="{{ path('prenota_singolo', {'slug' : locale.slug}) }}">
+                Prenota ora
+            </a>
+        </div>
+    </section>
+
+    {{ include('app/locali/locale-footer.html.twig') }}
+
+{% endblock %}

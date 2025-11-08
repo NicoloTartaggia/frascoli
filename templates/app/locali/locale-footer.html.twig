@@ -1,0 +1,41 @@
+<section>
+    <div class="separator separator-contatti"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+    <div class="grid-contatti">
+        <div class="contatti-col">
+            <p class="condensed contatti-space">Dove siamo</p>
+            <a target="_blank" href="{{ locale.linkMaps }}">
+                <img class="contatti-map" src="{{ asset('uploads/luogo/' ~ locale.imgMappa ) }}" alt="">
+            </a>
+        </div>
+
+
+        <div class="contatti-col">
+            <h2 class="condensed">I nostri contatti</h2>
+            <p class="condensed">Indirizzo</p>
+            <div class="contatti-wig">
+                {{ locale.indirizzoFull | raw }}
+            </div>
+            <a target="_blank" href="{{ locale.linkMaps }}" class="btn-main">Indicazioni stradali</a>
+        </div>
+
+
+        <div class="contatti-col">
+            <p class="condensed contatti-space">Orari</p>
+            <div class="contatti-wig">
+                {{ locale.orariFull | raw }}
+            </div>
+            <a target="_blank" href="{{ path('prenota_singolo', {'slug' : locale.slug}) }}" class="btn-main">Prenota ora</a>
+        </div>
+    </div>
+
+    <div class="grid-links">
+        <a target="_blank" href="{{ locale.urlInstagram }}">instagram</a>
+        <a target="_blank" href="{{ locale.urlFacebook }}">facebook</a>
+        <a target="_blank" href="{{ locale.linkMaps }}">google maps</a>
+        <a target="_blank" href="{{ locale.urlRecensione }}">recensione</a>
+
+    </div>
+
+
+</section>

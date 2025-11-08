@@ -1,0 +1,117 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Pesce fresco e prodotti stagionali | Frascoli Bacaro',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+<div class="hero-classic half-classic hero-m-full">
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color-interpolation-filters="sRGB">
+        <filter id="fluted" primitiveUnits="objectBoundingBox">
+            <feImage x="0" y="0" in="blur_0" result="image_0" crossorigin="anonymous" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' color-interpolation-filters='sRGB'>
+        <g>
+          <rect width='1' height='1' fill='black' />
+          <rect width='1' height='1' fill='url(%23red)' style='mix-blend-mode:screen' />
+          <rect width='1' height='1' fill='url(%23green)' style='mix-blend-mode:screen' />
+          <rect width='1' height='1' fill='url(%23yellow)' style='mix-blend-mode:screen' />
+        </g>
+        <defs>
+          <radialGradient id='yellow' cx='0' cy='0' r='1' >
+            <stop stop-color='yellow' />
+            <stop stop-color='yellow' offset='1' stop-opacity='0' />
+          </radialGradient>
+          <radialGradient id='green' cx='1' cy='0' r='1' >
+            <stop stop-color='green' />
+            <stop stop-color='green' offset='1' stop-opacity='0' />
+          </radialGradient>
+          <radialGradient id='red' cx='0' cy='1' r='1' >
+            <stop stop-color='red' />
+            <stop stop-color='red' offset='1' stop-opacity='0' />
+          </radialGradient>
+        </defs>
+      </svg>" preserveAspectRatio="none meet" width=".02" height="1" />
+            <feTile in="image_0" result="tile_0" />
+            <feGaussianBlur stdDeviation=".002" edgeMode="none" in="tile_0" result="bar_smoothness" x="0" y="0" />
+            <feGaussianBlur stdDeviation=".03" edgeMode="none" in="SourceGraphic" result="blur_glass" />
+            <feDisplacementMap scale=".08" xChannelSelector="R" yChannelSelector="G" in="SourceGraphic" in2="bar_smoothness" result="displacement_0" />
+        </filter>
+    </svg>
+
+    <video autoplay="" loop="" muted="" playsinline="" defaultmuted="" preload="none">
+        {# <source src="{{ asset('assets/static/hero1.webm') }}" type="video/webm"> #}
+        <source src="{{ asset('assets/static/hero3.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="glass"></div>
+
+    <h1 class="condensed">Tutto ha inizio dal mercato</h1>
+    <p>
+        Una buona cucina nasce dalla ricerca di materie prime fresche e di qualità. Il mercato di Chioggia è il nostro luogo di riferimento, dove quotidianamente, attraverso il legame diretto con i pescatori e fornitori di fiducia, scegliamo con cura ed esperienza i prodotti per i nostri locali, garantendo che ogni ingrediente rispetti gli alti standard che ci contraddistinguono. Il nostro impegno è offrire sapori autentici e genuini, portando in tavola la tradizione culinaria veneziana.
+    </p>
+
+    <hr size="300" class="vertical-scroll" />
+
+    <a class="btn-main" href="{{ path('prenota') }}">
+        Prenota ora
+    </a>
+</div>
+
+<section >
+    <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+    <p class="sub">L’ACQUA MARSISSE I PAI</p>
+    <h2 class="condensed">Se non è fresco non lo vogliamo</h2>
+    <p class="piw">
+        Il pesce fresco arriva da noi 3 volte alla settimana e se non è fresco non lo vogliamo. La qualità delle materie prime è la cosa con cui non scendiamo a compromessi. Meglio talvolta non avere qualcosa a menu che servirlo ad una qualità inferiore. Facciamo estrema attenzione alla conservazione del pesce per poterne esaltare il sapore e la freschezza. Ma la nostra attenzione non si limita solo al pesce. Anche le verdure, le erbe aromatiche e gli altri ingredienti che compongono i nostri piatti vengono selezionati con cura, privilegiando i prodotti di stagione.
+    </p>
+
+
+    <video controls class="short-video" playsinline="" preload="none">
+        <source src="{{ asset('assets/static/materie-prime.webm') }}" type="video/webm">
+        <source src="{{ asset('assets/static/materie-prime.mp4') }}" type="video/mp4">
+    </video>
+</section>
+
+<section >
+    <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+    <p class="sub">CHI NO MAGNA GÀ MAGNÀ</p>
+    <h2 class="condensed">I primi a regola d’arte</h2>
+    <p class="piw">
+        I primi sono il cuore della nostra cucina, nel rispetto della tradizione e di una preparazione a regola d’arte.
+        Tra le nostre specialità i protagonisti sono il risotto di pesce e lo spaghetto allo scoglio, servito direttamente in tecia per esaltare i sapori del mare. Lo spaghetto deve essere ben risottato nella padella, creando un ottimo legame tra il sugo e la pasta durante la cottura. Altre pietanze sono i bigoli in salsa, piatto tipico veneto a base di acciughe e cipolle e gli immancabili spaghetti alle vongole.
+    </p>
+
+    <div class="grid-cucina">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_3.jpg') }}" alt="">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_2.jpg') }}" alt="">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_1.jpg') }}" alt="">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_4.jpg') }}" alt="">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_5.jpg') }}" alt="">
+        <img src="{{ asset('assets/static/locali/frascoli_cucina_6.jpg') }}" alt="">
+    </div>
+</section>
+
+<section class="fh">
+    <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+    <div class="fhc">
+        <p class="sub">SE NO XE PAN XE POENTA</p>
+        <h2 class="condensed">canaéto</h2>
+        <p class="piw">
+            Nasce il nuovo aperitivo, ideato da noi per dare una scelta in più durante le giornate padovane. Il Canaéto è un aperitivo fresco dalle note agrumate che richiama lo spirtz al select. Al palato leggermente acido, ha come protagonista la kombucha, bibita a base di zenzero e limone che va ad unirsi alla base di select e gin con qualche goccia di maraschino, per un’esperienza leggera e piacevole.
+        </p>
+        <a class="btn-main" href="">
+            Scopri di più
+        </a>
+    </div>
+
+
+</section>
+
+
+
+{% endblock %}

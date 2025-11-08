@@ -1,0 +1,37 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Contatti | Frascoli Bacaro',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="hero-classic hero-classic-contatti">
+        <h1 class="condensed">Contatti</h1>
+    </div>
+
+    <section class="conttatti-body">
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+        <p class="sub">AMMINISTRAZIONE</p>
+        <h2 class="condensed">Frascoli by MF srl</h2>
+        <p class="piw">
+            Via del Santo 93 <br>
+            35123 Padova (PD) Italy <br><br>
+
+            IT 05233230282 <br>
+            35123 Padova (PD) Italy <br><br>
+
+            tel <a class="link-muted" href="https://call.suerte.studio/?utm=frascoli&tel=+393486535909">+39 348 6535 909</a> <br>
+            mail <a class="link-muted-alt" href="mailto:info@canaeto.it">info@canaeto.it</a>
+        </p>
+        <br>
+    </section>
+
+
+
+
+
+{% endblock %}

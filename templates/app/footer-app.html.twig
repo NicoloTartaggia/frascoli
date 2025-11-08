@@ -1,0 +1,38 @@
+<footer id="fm" class="{{ expand ? 'footer-expand' }}">
+    <aside>
+        <div>
+            <ul>
+                <li>Menu</li>
+                <li><a href="{{ path('locale', {'slug' : 'frascoli-padova'}) }}">Frascoli Bacaro Padova</a></li>
+                {# <li><a href="{{ path('locale', {'slug' : 'frascoli-venezia'}) }}">Frascoli Bacaro Venezia</a></li>  #}
+                <li><a href="{{ path('locale', {'slug' : 'frascolino'}) }}">Frascolino Padova</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>Esplora</li>
+                <li><a href="{{ path('viaggio') }}">Viaggio</a></li>
+                <li><a href="{{ path('contatti') }}">Contatti</a></li>
+                <li><a href="{{ path('organizza_evento') }}">Organizza un evento</a></li>
+                <li><a href="mailto:direzione@frascoli.it">Lavora con noi</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>Informazioni</li>
+                <li><a href="https://www.iubenda.com/privacy-policy/86822110/cookie-policy" target="_blank">Cookie Policy</a></li>
+                <li><a href="https://www.iubenda.com/privacy-policy/86822110" target="_blank">Privacy Policy</a></li>
+                <li><a href="https://suertestudio.com" target="_blank">Credits</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <p>
+                © 2025 - Frascoli Bacaro.  <br> IT05233230282
+            </p>
+        </div>
+        <div></div>
+        <div></div>
+    </aside>
+    <img class="frascolone" src="{{ asset('assets/static/logo-white@3x.png') }}" alt="">
+</footer>

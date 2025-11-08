@@ -1,0 +1,62 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Frascoli Bacaro',
+        descrizione: 'I nostri locali affondano le proprie radici nella tradizione veneziana ampliando il concetto di bacaro e portandolo oltre i confini della Laguna.'
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+<div class="hero-home">
+    <h1 class="condensed">atmosfera veneziana</h1>
+    <p>
+    <b>Bacaro \bàcaro\ [sin. bacareto] — osteria popolare veneziana in grado di offrire una vasta scelta di cicchetti e ombre.</b>
+       <br>
+    Da questa definizione siamo partiti per sviluppare locali che affondino le proprie radici nella tradizione veneziana ampliando il concetto di bacaro e portandolo oltre i confini della Laguna.
+    </p>
+
+    <hr size="300" class="vertical-scroll" />
+
+    <a class="btn-main" href="{{ path('viaggio') }}">
+        Esplora il nostro viaggio
+    </a>
+</div>
+
+<section class="home-1" style="background-image: url('{{ asset('assets/static/bg-2.jpg') }}')">
+    <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+    <p class="sub">FRASCOLI</p>
+    <h2 class="condensed">scopri  i nostri locali</h2>
+    <p class="pi">
+        Gli spazi nei quali esprimiamo la nostra visione di cucina e i valori dell’ospitalità e cura del cliente.
+    </p>
+
+    <div class="row-locali">
+        {% for locale in locali %}
+            <a class="anima" href="{{ path('locale', {'slug' : locale.slug }) }}" style="background-image: url('{{ asset('uploads/luogo/' ~ locale.imgCard ) }}')">
+                <h3 class="condensed">{{ locale.nomeCard }}</h3>
+                <p>{{ locale.viaCard }}</p>
+                <small>{{ locale.descrizioneCard }}</small>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="home-2">
+    <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+    <div class="block-vertical">
+        <h2 class="condensed">La nostra cucina</h2>
+        <p class="pi">
+            Una buona cucina nasce dalla ricerca di materie prime fresche e di qualità. Il mercato è il nostro luogo di riferimento, dove scegliamo con cura ed esperienza i prodotti per i nostri bacari.
+        </p>
+
+        <a class="btn-main" href="{{ path('cucina') }}">
+            Esplora la nostra cucina
+        </a>
+    </div>
+
+</section>
+
+
+{% endblock %}

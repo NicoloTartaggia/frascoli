@@ -1,0 +1,50 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {titolo: locale.metaTitle, descrizione: locale.metaDescription}) }}
+{% endblock %}
+
+{% block body %}
+
+
+    {{ include('app/locali/locale-head.html.twig') }}
+
+    <section >
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+        <p class="sub">MI AA TO ETÀ SALTAVO I FOSSI PAR LONGO</p>
+        <h2 class="condensed">Vivere il bacaro</h2>
+        <p class="piw">
+            Siamo andati oltre i confini della Laguna di Venezia conservando la leggerezza e la spensieratezza che ci caratterizzano. Cerchiamo di creare un’atmosfera positiva attraverso simpatia e gentilezza dove le persone possano vivere un’esperienza familiare felice con amici, parenti e le persone che amano. Sedersi a tavola come momento di ristoro e di condivisione davanti ad un buon calice di vino e pietanze abbondanti che soddisfino il palato.
+        </p>
+
+
+        <div class="grid-locale">
+            <img src="{{ asset('assets/static/locali/Frascoli_padova_02.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascoli_padova_01.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascoli_padova_03.jpg') }}" alt="">
+        </div>
+    </section>
+
+
+    <section class="fh">
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+        <div class="fhc">
+            <p class="sub">EL TIMON TIEN DRITA LA BARCA</p>
+            <h2 class="condensed">Osteria di pesce</h2>
+            <p class="piw">
+                La nostra cucina si basa sulla freschezza dei prodotti e sulla stagionalità, con particolare attenzione ai primi. Frascoli Bacaro a Padova offre antipasti dell’Adriatico, spaghetti ai caparossoli, risotti di pesce, seppie in nero, piatti a base di baccalà e la tecia allo scoglio. Sempre presente un vasto assortimento di tipici cicchetti veneziani a base di pesce, carne e scampi crudi. Diamo un po’ di spazio anche a delle ricette personali come gli spaghetti alla malamocchina, un ragù di pesce realizzato con una selezione di pesci lagunari. Una particolarità del nostro bacaro è il folpo bollito, condito con un battuto di olio e prezzemolo. La nostra cantina vanta un’ampia selezione di vini bianchi, rossi e bollicine da abbinare sapientemente con le pietanza scelte.
+            </p>
+            <a class="btn-main" href="{{ path('prenota_singolo', {'slug' : locale.slug}) }}">
+                Prenota ora
+            </a>
+        </div>
+    </section>
+
+
+    {{ include('app/locali/locale-footer.html.twig') }}
+
+
+
+
+{% endblock %}

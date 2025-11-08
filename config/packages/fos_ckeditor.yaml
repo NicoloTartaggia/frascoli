@@ -1,0 +1,23 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+  default_config: default
+  configs:
+    default:
+      versionCheck: false
+      toolbar:
+        - [ Bold, Italic, Underline, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, NumberedList, BulletedList, -, Outdent, Indent, -, Blockquote, HorizontalRule, -, Image, Link, Unlink]
+        - [ Format, Maximize, -, Source]
+      #filebrowserBrowseRoute: "elfinder"
+      #filebrowserBrowseRouteParameters: {instance : 'ckeditor'}
+      #filebrowserImageBrowseRoute: "elfinder"
+      #filebrowserImageBrowseRouteParameters: {instance : 'ckeditor'}
+    minimal:
+      versionCheck: false
+      toolbar:
+        - [ Bold, Italic, Underline, -, Link, Unlink, -, Cut, Copy, Paste, PasteText, PasteFromWord, -, Undo, Redo, -, Maximize]
+      disallowedContent: ['div', 'p', 'ol', 'ul']
+
+
+#twig:
+    #form_themes:
+        #- '@FOSCKEditor/Form/ckeditor_widget.html.twig'

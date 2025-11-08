@@ -1,0 +1,78 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Prenota | Frascoli Bacaro',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+
+<div class="hero-classic half-classic hero-classic-prenota hero-m-full">
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color-interpolation-filters="sRGB">
+        <filter id="fluted" primitiveUnits="objectBoundingBox">
+            <feImage x="0" y="0" in="blur_0" result="image_0" crossorigin="anonymous" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' color-interpolation-filters='sRGB'>
+    <g>
+      <rect width='1' height='1' fill='black' />
+      <rect width='1' height='1' fill='url(%23red)' style='mix-blend-mode:screen' />
+      <rect width='1' height='1' fill='url(%23green)' style='mix-blend-mode:screen' />
+      <rect width='1' height='1' fill='url(%23yellow)' style='mix-blend-mode:screen' />
+    </g>
+    <defs>
+      <radialGradient id='yellow' cx='0' cy='0' r='1' >
+        <stop stop-color='yellow' />
+        <stop stop-color='yellow' offset='1' stop-opacity='0' />
+      </radialGradient>
+      <radialGradient id='green' cx='1' cy='0' r='1' >
+        <stop stop-color='green' />
+        <stop stop-color='green' offset='1' stop-opacity='0' />
+      </radialGradient>
+      <radialGradient id='red' cx='0' cy='1' r='1' >
+        <stop stop-color='red' />
+        <stop stop-color='red' offset='1' stop-opacity='0' />
+      </radialGradient>
+    </defs>
+  </svg>" preserveAspectRatio="none meet" width=".02" height="1" />
+            <feTile in="image_0" result="tile_0" />
+            <feGaussianBlur stdDeviation=".002" edgeMode="none" in="tile_0" result="bar_smoothness" x="0" y="0" />
+            <feGaussianBlur stdDeviation=".03" edgeMode="none" in="SourceGraphic" result="blur_glass" />
+            <feDisplacementMap scale=".08" xChannelSelector="R" yChannelSelector="G" in="SourceGraphic" in2="bar_smoothness" result="displacement_0" />
+        </filter>
+    </svg>
+
+    <video autoplay="" loop="" muted="" playsinline="" defaultmuted="" preload="none">
+        {# <source src="{{ asset('assets/static/hero1.webm') }}" type="video/webm"> #}
+        <source src="{{ asset('assets/static/hero3.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="glass"></div>
+
+    <h1 class="condensed">NO STA SCRIVER <br>
+        CIAMA CHE XE MEIO</h1>
+    <p>
+        Su questo siamo alla vecchia maniera, da noi si prenota chiamando. Ci teniamo a sentire
+        la vostra voce e ascoltare le vostre richieste. L’esperienza nel bacaro inizia da qui.
+    </p>
+
+    <hr size="300" class="vertical-scroll" />
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.luogo) }}
+
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

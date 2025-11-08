@@ -1,0 +1,15 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {titolo: locale.metaTitle, descrizione: locale.metaDescription}) }}
+{% endblock %}
+
+{% block body %}
+    <div class="hero-locale non-attivo">
+        <img style="max-width: 500px;" src="{{ asset('assets/static/ill/ill1.png') }}" alt="">
+        <h1 class="condensed">{{ locale.nomeCover }}</h1>
+        <p>
+            Coming soon
+        </p>
+    </div>
+{% endblock %}

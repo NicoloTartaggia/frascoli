@@ -1,0 +1,26 @@
+{% extends 'base-app.html.twig' %}
+
+
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Pagina non trovata',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+
+
+{% block body %}
+    <div class="hero-locale non-attivo">
+        <img style="max-width: 500px; margin-bottom: 10vh; margin-top: 10vh;" src="{{ asset('assets/static/ill/ill2.png') }}" alt="">
+        <h1 class="condensed">Errore {{ status_code }}</h1>
+        <p>
+            {{ status_text }} <br>
+            {{ exception.getMessage() }}
+        </p>
+
+        <a class="btn-main" data-no-swup href="{{ path('home') }}">
+            Torna in home
+        </a>
+    </div>
+{% endblock %}

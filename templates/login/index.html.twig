@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="col-lg-7 text-center text-lg-start">
+                <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Frascoli</h1>
+                <p class="col-lg-10 fs-4">Accesso al backoffice <span style="font-size: 12px;     vertical-align: middle;" class="badge text-bg-secondary">{{ appversion() }}</span></p>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5">
+                <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" action="{{ path('app_login') }}" method="post">
+                    <div class="form-floating mb-3">
+                        <input id="username" name="_username" type="email" class="form-control" placeholder="mario@forema.it" value="{{ last_username }}">
+                        <label for="username">Email</label>
+
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" id="password" name="_password" class="form-control {{ error ? 'is-invalid' }}" placeholder="Password">
+                        <label for="password">Password</label>
+
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            {% if error %}
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+
+                    <button class="w-100 btn btn-lg btn-primary mt-3 mb-3" type="submit">Accedi</button>
+
+                    <br>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

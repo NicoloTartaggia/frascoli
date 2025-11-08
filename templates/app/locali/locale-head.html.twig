@@ -1,0 +1,12 @@
+<div class="hero-locale" style="background-image: url('{{ asset("uploads/luogo/" ~ locale.imgCover) }}')">
+    <h1 class="condensed">{{ locale.nomeCover }}</h1>
+    <p>
+        {{ locale.descrizioneCover }}
+    </p>
+
+    <hr size="50" class="vertical-scroll" />
+
+    <a class="btn-main" data-no-swup href="{{ asset("/uploads/menu/" ~ locale.menu) }}">
+        Menù
+    </a>
+</div>
