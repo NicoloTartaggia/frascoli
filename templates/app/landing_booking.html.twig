@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Eventi & Richieste - Prenota</title>
+    <style>
+        :root{--accent:#c0392b;--bg:#fafafa;--card:#fff;--text:#222}
+        body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.4;color:var(--text);background:var(--bg);margin:0}
+        .hero{background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)), url('/images/hero-eventi.jpg') center/cover no-repeat; color:#fff;padding:90px 20px;text-align:center}
+        .container{max-width:1100px;margin:0 auto;padding:30px}
+        h1{margin:0 0 10px;font-size:36px}
+        p.lead{margin:0 0 20px;opacity:.95}
+        .grid{display:flex;gap:30px;flex-wrap:wrap}
+        .card{background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,.08);padding:24px;border-radius:10px;flex:1 1 360px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
+        input[type="text"],input[type="email"],input[type="date"],select,textarea,input[type="number"]{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px;font-size:14px}
+        button.btn{background:var(--accent);color:#fff;border:0;padding:12px 18px;border-radius:8px;font-weight:700;cursor:pointer}
+        .muted{color:#666;font-size:14px}
+        .flash{padding:12px;border-radius:8px;margin-bottom:16px}
+        .flash.success{background:#eaffef;border:1px solid #b7f0c4;color:#0b6b2b}
+        .flash.error{background:#ffecec;border:1px solid #f1b7b7;color:#7a1b1b}
+        @media(max-width:700px){h1{font-size:28px}.grid{flex-direction:column}}
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Organizza il tuo evento con noi</h1>
+            <p class="lead">Festeggia con menù su misura, location esclusiva e servizio dedicato. Compila il form per ricevere informazioni o prenotare una richiesta.</p>
+        </div>
+    </section>
+
+    <main class="container" role="main">
+        {% for label, messages in app.flashes %}
+            {% for msg in messages %}
+                <div class="flash {{ label }}">{{ msg }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="grid">
+            <div class="card">
+                <h2>Richiedi informazioni / Prenota</h2>
+                <p class="muted">Compila i campi sottostanti e ti ricontatteremo il prima possibile.</p>
+
+                <form id="bookingForm" action="{{ path('landing_booking') }}" method="post" novalidate>
+                    <label for="name">Nome e Cognome</label>
+                    <input id="name" name="name" type="text" required>
+
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required>
+
+                    <label for="phone">Telefono</label>
+                    <input id="phone" name="phone" type="text">
+
+                    <label for="localita">Località</label>
+                    <input id="localita" name="localita" type="text">
+
+                    <label for="date">Data evento</label>
+                    <input id="date" name="date" type="date">
+
+                    <label for="event_type">Tipo di evento</label>
+                    <select id="event_type" name="event_type">
+                        <option value="">Seleziona (Tipo di evento)</option>
+                        <option value="Evento privato">Evento privato</option>
+                        <option value="Evento a partecipazione libera">Evento a partecipazione libera</option>
+                        <option value="Evento aziendale">Evento aziendale</option>
+                    </select>
+
+                    <!-- Conditional section for "Evento privato".
+                         Fields are present but intentionally without name attributes.
+                         JS will assign/remove name attributes so controller receives them only when visible. -->
+                    <div id="privateSection" style="display:none;margin-top:8px;">
+                        <label for="meal">Pranzo/Cena</label>
+                        <select id="meal" data-name="meal">
+                            <option value="">Pranzo/Cena</option>
+                            <option value="Pranzo">Pranzo</option>
+                            <option value="Cena">Cena</option>
+                        </select>
+
+                        <label for="people">Numero persone</label>
+                        <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+
+                        <label for="drink_service">Servizio bevande</label>
+                        <select id="drink_service" data-name="drink_service">
+                            <option value="">Non specificato</option>
+                            <option value="Non richiesto">Non richiesto</option>
+                            <option value="Alcolici">Alcolici</option>
+                            <option value="Analcolici">Analcolici</option>
+                            <option value="Alcolici + analcolici">Alcolici + analcolici</option>
+                        </select>
+                    </div>
+
+                    <label for="message">Messaggio / Richieste particolari</label>
+                    <textarea id="message" name="message" rows="5"></textarea>
+
+                    <button class="btn" type="submit">Invia richiesta</button>
+                </form>
+            </div>
+
+            <aside class="card">
+                <h3>Perché scegliere noi</h3>
+                <ul class="muted">
+                    <li>Menu personalizzati e chef dedicato</li>
+                    <li>Allestimenti e servizio professionale</li>
+                    <li>Supporto nella logistica dell'evento</li>
+                </ul>
+
+                <h3>Contatti</h3>
+                <p class="muted">Telefono: <strong>+39 012 345 6789</strong><br>Email: <strong>info@example.com</strong></p>
+
+                <h3>Come funziona</h3>
+                <ol class="muted">
+                    <li>Inviaci la richiesta</li>
+                    <li>Confermiamo disponibilità e preventivo</li>
+                    <li>Confermi e organizziamo i dettagli</li>
+                </ol>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        (function(){
+            const eventType = document.getElementById('event_type');
+            const privateSection = document.getElementById('privateSection');
+
+            function showPrivate() {
+                // assign name attributes from data-name so these fields are submitted
+                privateSection.style.display = '';
+                Array.from(privateSection.querySelectorAll('[data-name]')).forEach(el => {
+                    el.name = el.getAttribute('data-name');
+                });
+            }
+
+            function hidePrivateAndClear() {
+                // remove name attributes so controller won't receive them and clear values
+                Array.from(privateSection.querySelectorAll('[data-name]')).forEach(el => {
+                    el.removeAttribute('name');
+                    if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
+                    else el.value = '';
+                });
+                privateSection.style.display = 'none';
+            }
+
+            eventType.addEventListener('change', function() {
+                const v = this.value;
+                if (v === 'Evento privato') {
+                    showPrivate();
+                } else {
+                    hidePrivateAndClear();
+                }
+            });
+
+            // initial state based on current selection (useful when re-rendering after validation)
+            if (eventType.value === 'Evento privato') {
+                showPrivate();
+            } else {
+                hidePrivateAndClear();
+            }
+
+            // optional: prevent non-integer submission in people field (basic client-side)
+            const people = document.getElementById('people');
+            people && people.addEventListener('input', function(){
+                if (this.value && this.value.indexOf('.') !== -1) {
+                    this.value = this.value.split('.')[0];
+                }
+                if (this.value && parseInt(this.value,10) < 1) {
+                    this.value = '';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
