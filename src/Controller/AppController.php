@@ -187,15 +187,4 @@ class AppController extends AbstractController
 
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
 }
