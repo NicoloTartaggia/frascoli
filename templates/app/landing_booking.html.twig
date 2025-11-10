@@ -40,9 +40,6 @@
 
         <div class="grid">
             <div class="card">
-                <h2>Richiedi informazioni / Prenota</h2>
-                <p class="muted">Compila i campi sottostanti e ti ricontatteremo il prima possibile.</p>
-
                 <form id="bookingForm" action="{{ path('landing_booking') }}" method="post" novalidate>
                     <label for="name">Nome e Cognome</label>
                     <input id="name" name="name" type="text" required>
@@ -51,7 +48,7 @@
                     <input id="email" name="email" type="email" required>
 
                     <label for="phone">Telefono</label>
-                    <input id="phone" name="phone" type="text">
+                    <input id="phone" name="phone" type="text" placeholder="+39 ..." >
 
                     <label for="localita">Località</label>
                     <input id="localita" name="localita" type="text">
@@ -59,17 +56,25 @@
                     <label for="date">Data evento</label>
                     <input id="date" name="date" type="date">
 
+                    <!-- Servizio bevande default to "Non richiesto" -->
+                    <label for="drink_service">Servizio bevande</label>
+                    <select id="drink_service" name="drink_service">
+                        <option value="Non richiesto" selected>Non richiesto</option>
+                        <option value="Non richiesto">Non richiesto</option>
+                        <option value="Alcolici">Alcolici</option>
+                        <option value="Analcolici">Analcolici</option>
+                        <option value="Alcolici + analcolici">Alcolici + analcolici</option>
+                    </select>
+
                     <label for="event_type">Tipo di evento</label>
-                    <select id="event_type" name="event_type">
+                    <select id="event_type" name="event_type" required>
                         <option value="">Seleziona (Tipo di evento)</option>
                         <option value="Evento privato">Evento privato</option>
                         <option value="Evento a partecipazione libera">Evento a partecipazione libera</option>
                         <option value="Evento aziendale">Evento aziendale</option>
                     </select>
 
-                    <!-- Conditional section for "Evento privato".
-                         Fields are present but intentionally without name attributes.
-                         JS will assign/remove name attributes so controller receives them only when visible. -->
+                    <!-- Private / Free / Company sections (data-name used by JS) -->
                     <div id="privateSection" style="display:none;margin-top:8px;">
                         <label for="meal">Pranzo/Cena</label>
                         <select id="meal" data-name="meal">
@@ -80,16 +85,74 @@
 
                         <label for="people">Numero persone</label>
                         <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
-
-                        <label for="drink_service">Servizio bevande</label>
-                        <select id="drink_service" data-name="drink_service">
-                            <option value="">Non specificato</option>
-                            <option value="Non richiesto">Non richiesto</option>
-                            <option value="Alcolici">Alcolici</option>
-                            <option value="Analcolici">Analcolici</option>
-                            <option value="Alcolici + analcolici">Alcolici + analcolici</option>
-                        </select>
                     </div>
+
+                    <div id="freeSection" style="display:none;margin-top:8px;">
+                        <label for="start_time">Orario di inizio</label>
+                        <select id="start_time" data-name="start_time">
+                            <option value="">Seleziona orario</option>
+                            {% for hh in 0..23 %}
+                                {% for mm in [0,30] %}
+                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            <option value="23:59">23:59</option>
+                        </select>
+
+                        <label for="end_time">Orario di fine</label>
+                        <select id="end_time" data-name="end_time">
+                            <option value="">Seleziona orario</option>
+                            {% for hh in 0..23 %}
+                                {% for mm in [0,30] %}
+                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            <option value="23:59">23:59</option>
+                        </select>
+
+                        <!-- companySection times -->
+                        <label for="c_start_time">Orario di inizio</label>
+                        <select id="c_start_time" data-name="start_time">
+                            <option value="">Seleziona orario</option>
+                            {% for hh in 0..23 %}
+                                {% for mm in [0,30] %}
+                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            <option value="23:59">23:59</option>
+                        </select>
+
+                        <label for="c_end_time">Orario di fine</label>
+                        <select id="c_end_time" data-name="end_time">
+                            <option value="">Seleziona orario</option>
+                            {% for hh in 0..23 %}
+                                {% for mm in [0,30] %}
+                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                            <option value="23:59">23:59</option>
+                        </select>
+
+                        <label for="c_people">Numero di persone</label>
+                        <input id="c_people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                    </div>
+
+                    <!-- Servizi aggiuntivi -->
+                    <fieldset style="margin-top:16px;border:1px solid #eee;padding:14px;border-radius:8px">
+                        <legend style="font-weight:700;margin-bottom:8px">Servizi aggiuntivi</legend>
+
+                        <label><input type="checkbox" id="svc_birra" name="services[]" value="BIRRA ALLA SPINA"> BIRRA ALLA SPINA</label>
+                        <label><input type="checkbox" id="svc_dj" name="services[]" value="DJ / IMPIANTO AUDIO"> DJ / IMPIANTO AUDIO</label>
+                        <label><input type="checkbox" id="svc_cocktail" name="services[]" value="SERVIZIO COCKTAIL"> SERVIZIO COCKTAIL</label>
+                        <label><input type="checkbox" id="svc_rifiuti" name="services[]" value="SERVIZIO RIFIUTI"> SERVIZIO RIFIUTI</label>
+                        <label><input type="checkbox" id="svc_dolce" name="services[]" value="DOLCE"> DOLCE</label>
+                        <label><input type="checkbox" id="svc_box" name="services[]" value="BOX FRITTI APERITIVO"> BOX FRITTI APERITIVO</label>
+
+                        <div style="margin-left:18px;margin-top:6px">
+                            <label><input type="checkbox" id="svc_panche" name="services[]" value="PANCHE E TAVOLI"> PANCHE E TAVOLI <small style="color:#666"> (solo in aggiunta al servizio birra)</small></label>
+                            <label><input type="checkbox" id="svc_caffe" name="services[]" value="CAFFE"> CAFFE <small style="color:#666"> (solo in aggiunta al servizio birra o cocktail)</small></label>
+                        </div>
+                    </fieldset>
 
                     <label for="message">Messaggio / Richieste particolari</label>
                     <textarea id="message" name="message" rows="5"></textarea>
@@ -101,13 +164,13 @@
             <aside class="card">
                 <h3>Perché scegliere noi</h3>
                 <ul class="muted">
-                    <li>Menu personalizzati e chef dedicato</li>
+                    <li>Menu personalizzati</li>
                     <li>Allestimenti e servizio professionale</li>
                     <li>Supporto nella logistica dell'evento</li>
                 </ul>
 
                 <h3>Contatti</h3>
-                <p class="muted">Telefono: <strong>+39 012 345 6789</strong><br>Email: <strong>info@example.com</strong></p>
+                <p class="muted">Telefono: <strong>+39 049 660 505</strong><br>Email: <strong>info@frascoli.it</strong></p>
 
                 <h3>Come funziona</h3>
                 <ol class="muted">
@@ -123,50 +186,103 @@
         (function(){
             const eventType = document.getElementById('event_type');
             const privateSection = document.getElementById('privateSection');
+            const freeSection = document.getElementById('freeSection');
+            const companySection = document.getElementById('companySection');
+            const bookingForm = document.getElementById('bookingForm');
 
-            function showPrivate() {
-                // assign name attributes from data-name so these fields are submitted
-                privateSection.style.display = '';
-                Array.from(privateSection.querySelectorAll('[data-name]')).forEach(el => {
+            function assignNames(section) {
+                Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
                     el.name = el.getAttribute('data-name');
                 });
+                section.style.display = '';
             }
 
-            function hidePrivateAndClear() {
-                // remove name attributes so controller won't receive them and clear values
-                Array.from(privateSection.querySelectorAll('[data-name]')).forEach(el => {
+            function clearAndUnassign(section) {
+                Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
                     el.removeAttribute('name');
                     if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
                     else el.value = '';
                 });
-                privateSection.style.display = 'none';
+                section.style.display = 'none';
             }
 
-            eventType.addEventListener('change', function() {
-                const v = this.value;
+            function handleEventTypeChange(v) {
                 if (v === 'Evento privato') {
-                    showPrivate();
+                    assignNames(privateSection);
+                    clearAndUnassign(freeSection);
+                    clearAndUnassign(companySection);
+                } else if (v === 'Evento a partecipazione libera') {
+                    assignNames(freeSection);
+                    clearAndUnassign(privateSection);
+                    clearAndUnassign(companySection);
+                } else if (v === 'Evento aziendale') {
+                    assignNames(companySection);
+                    clearAndUnassign(privateSection);
+                    clearAndUnassign(freeSection);
                 } else {
-                    hidePrivateAndClear();
+                    clearAndUnassign(privateSection);
+                    clearAndUnassign(freeSection);
+                    clearAndUnassign(companySection);
                 }
-            });
-
-            // initial state based on current selection (useful when re-rendering after validation)
-            if (eventType.value === 'Evento privato') {
-                showPrivate();
-            } else {
-                hidePrivateAndClear();
             }
 
-            // optional: prevent non-integer submission in people field (basic client-side)
-            const people = document.getElementById('people');
-            people && people.addEventListener('input', function(){
-                if (this.value && this.value.indexOf('.') !== -1) {
-                    this.value = this.value.split('.')[0];
+            eventType && eventType.addEventListener('change', function() {
+                handleEventTypeChange(this.value);
+            });
+            handleEventTypeChange(eventType ? eventType.value : '');
+
+            // client-side submit validation
+            bookingForm && bookingForm.addEventListener('submit', function (e) {
+                // phone validation (if present)
+                const phone = document.getElementById('phone').value.trim();
+                if (phone !== '') {
+                    const digits = phone.replace(/\D/g,'');
+                    if (digits.length < 6) {
+                        e.preventDefault();
+                        alert('Telefono non valido. Inserire un numero di telefono corretto.');
+                        document.getElementById('phone').focus();
+                        return;
+                    }
                 }
-                if (this.value && parseInt(this.value,10) < 1) {
-                    this.value = '';
+
+                // event type required
+                const et = eventType.value;
+                if (!et) {
+                    e.preventDefault();
+                    alert('Seleziona il tipo di evento.');
+                    eventType.focus();
+                    return;
                 }
+
+                // per-event validation
+                if (et === 'Evento privato') {
+                    const meal = document.getElementById('meal').value;
+                    const people = document.getElementById('people').value;
+                    if (!meal) {
+                        e.preventDefault(); alert('Seleziona Pranzo o Cena.'); document.getElementById('meal').focus(); return;
+                    }
+                    if (!people || parseInt(people,10) < 1) {
+                        e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('people').focus(); return;
+                    }
+                } else if (et === 'Evento a partecipazione libera') {
+                    const s = document.getElementById('start_time').value;
+                    const en = document.getElementById('end_time').value;
+                    if (!s || !en) {
+                        e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return;
+                    }
+                    const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
+                    if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
+                } else if (et === 'Evento aziendale') {
+                    const s = document.getElementById('c_start_time').value;
+                    const en = document.getElementById('c_end_time').value;
+                    const ppl = document.getElementById('c_people').value;
+                    if (!s || !en) { e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return; }
+                    const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
+                    if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
+                    if (!ppl || parseInt(ppl,10) < 1) { e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('c_people').focus(); return; }
+                }
+
+                // if we reach here, allow normal submission
             });
         })();
     </script>
