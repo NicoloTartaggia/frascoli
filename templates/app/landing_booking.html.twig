@@ -109,8 +109,10 @@
                             {% endfor %}
                             <option value="23:59">23:59</option>
                         </select>
+                    </div>
 
-                        <!-- companySection times -->
+                    <!-- companySection must be a separate sibling, not nested inside freeSection -->
+                    <div id="companySection" style="display:none;margin-top:8px;">
                         <label for="c_start_time">Orario di inizio</label>
                         <select id="c_start_time" data-name="start_time">
                             <option value="">Seleziona orario</option>

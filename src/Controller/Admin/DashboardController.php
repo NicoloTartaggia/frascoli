@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Luogo;
 use App\Entity\User;
+use App\Entity\EventRequest;
 use App\Helpers\GitUtils;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -57,16 +58,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        return [
-            MenuItem::linkToCrud('Utenti', 'fa fa-users', User::class),
-            MenuItem::linkToCrud('Luoghi', 'fa fa-martini-glass', Luogo::class),
+        yield MenuItem::linkToCrud('Luoghi', 'fas fa-map-marker-alt', Luogo::class);
 
-            MenuItem::section('Altro'),
-            MenuItem::linkToUrl('Torna al sito', 'fa fa-walking', '/'),
+        yield MenuItem::linkToCrud('Utenti', 'fas fa-users', User::class);
 
-        ];
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Richieste di eventi', 'fas fa-calendar-alt', EventRequest::class);
     }
 
 

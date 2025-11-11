@@ -23,12 +23,12 @@ class EventRequestBuilder implements EventRequestBuilderInterface
         $r = $request->request;
         $er = new EventRequest();
 
-        $er->setName(trim($r->get('name', '')));
-        $er->setEmail(trim($r->get('email', '')));
-        $er->setPhone(($p = trim($r->get('phone', ''))) === '' ? null : $p);
-        $er->setLocalita(($l = trim($r->get('localita', ''))) === '' ? null : $l);
+        $er->setName(trim((string) $r->get('name', '')));
+        $er->setEmail(trim((string) $r->get('email', '')));
+        $er->setPhone(($p = trim((string) $r->get('phone', ''))) === '' ? null : $p);
+        $er->setLocalita(($l = trim((string) $r->get('localita', ''))) === '' ? null : $l);
 
-        $dateRaw = trim($r->get('date', ''));
+        $dateRaw = trim((string) $r->get('date', ''));
         if ($dateRaw !== '') {
             $d = \DateTime::createFromFormat('Y-m-d', $dateRaw);
             if ($d !== false) {
@@ -36,16 +36,16 @@ class EventRequestBuilder implements EventRequestBuilderInterface
             }
         }
 
-        $drink = trim($r->get('drink_service', ''));
+        $drink = trim((string) $r->get('drink_service', ''));
         $er->setDrinkService($drink === '' ? 'Non richiesto' : $drink);
 
-        $type = trim($r->get('event_type', ''));
+        $type = trim((string) $r->get('event_type', ''));
         $er->setEventType($type);
 
         // conditional fields
         if ($type === 'Evento privato') {
-            $er->setMeal(($m = trim($r->get('meal', ''))) === '' ? null : $m);
-            $people = trim($r->get('people', ''));
+            $er->setMeal(($m = trim((string) $r->get('meal', ''))) === '' ? null : $m);
+            $people = trim((string) $r->get('people', ''));
             $er->setPeople($people === '' ? null : (int)$people);
         } else {
             $er->setMeal(null);
@@ -53,8 +53,8 @@ class EventRequestBuilder implements EventRequestBuilderInterface
         }
 
         if ($type === 'Evento a partecipazione libera' || $type === 'Evento aziendale') {
-            $start = trim($r->get('start_time', ''));
-            $end = trim($r->get('end_time', ''));
+            $start = trim((string) $r->get('start_time', ''));
+            $end = trim((string) $r->get('end_time', ''));
             $er->setStartTime($start === '' ? null : $start);
             $er->setEndTime($end === '' ? null : $end);
         } else {
@@ -63,20 +63,33 @@ class EventRequestBuilder implements EventRequestBuilderInterface
         }
 
         if ($type === 'Evento aziendale') {
-            $people = trim($r->get('people', ''));
+            $people = trim((string) $r->get('people', ''));
             $er->setPeople($people === '' ? null : (int)$people);
         }
 
-        $rawServices = $r->get('services');
-        if ($rawServices === null) {
-            $rawServices = [];
-        } elseif (!is_array($rawServices)) {
-            $rawServices = [$rawServices];
-        }
-        $filtered = array_values(array_intersect($this->allowedServices, $rawServices));
+        // --- SAFE: read raw params array to avoid InputBag::get scalar checks ---
+        $params = $r->all();
+        $rawServices = $params['services'] ?? null;
+
+        $flat = [];
+        $flatten = function ($v) use (&$flatten, &$flat) {
+            if ($v === null) return;
+            if (is_array($v)) {
+                foreach ($v as $item) {
+                    $flatten($item);
+                }
+                return;
+            }
+            if (is_scalar($v)) {
+                $flat[] = (string) $v;
+            }
+        };
+        $flatten($rawServices);
+
+        $filtered = array_values(array_intersect($this->allowedServices, $flat));
         $er->setServices($filtered === [] ? null : $filtered);
 
-        $er->setMessage(($msg = trim($r->get('message', ''))) === '' ? null : $msg);
+        $er->setMessage(($msg = trim((string) $r->get('message', ''))) === '' ? null : $msg);
 
         return $er;
     }

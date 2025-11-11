@@ -103,4 +103,20 @@ class EventRequest
 
     public function getCreatedAt(): \DateTimeInterface { return $this->createdAt; }
     public function setCreatedAt(\DateTimeInterface $dt): self { $this->createdAt = $dt; return $this; }
+
+    public function getEventDateString(): ?string
+    {
+        if (isset($this->eventDate) && $this->eventDate instanceof \DateTimeInterface) {
+            return $this->eventDate->format('Y-m-d');
+        }
+        return null;
+    }
+
+    public function getCreatedAtString(): ?string
+    {
+        if (isset($this->createdAt) && $this->createdAt instanceof \DateTimeInterface) {
+            return $this->createdAt->format('Y-m-d H:i');
+        }
+        return null;
+    }
 }
