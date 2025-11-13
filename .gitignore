@@ -54,6 +54,6 @@
 .idea/
 .vscode/
 .DS_Store
-.env
+#.env
 /public/bundles/
 /public/assets/
