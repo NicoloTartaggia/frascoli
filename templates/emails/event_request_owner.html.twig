@@ -1,0 +1,17 @@
+<h2>Nuova richiesta di evento</h2>
+<p><strong>Nome:</strong> {{ request.name }}</p>
+<p><strong>Email:</strong> {{ request.email }}</p>
+<p><strong>Telefono:</strong> {{ request.phone }}</p>
+<p><strong>Località:</strong> {{ request.localita }}</p>
+<p><strong>Data evento:</strong> {{ request.eventDateString }}</p>
+<p><strong>Servizi richiesti:</strong></p>
+{% if request.services is empty %}
+  <p>Nessuno</p>
+{% else %}
+  <ul>
+    {% for s in request.services %}
+      <li>{{ s }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<p><strong>Messaggio:</strong> {{ request.message is empty ? '/' : request.message }}</p>

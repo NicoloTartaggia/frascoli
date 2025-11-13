@@ -1,0 +1,30 @@
+.feature-icon-small {
+    width: 3rem;
+    height: 3rem;
+}
+
+.img-logo {
+    width: 45px;
+    padding: 10px;
+    filter: invert(1);
+}
+
+.img-logo-clean {
+    width: 45px;
+    padding: 10px;
+}
+
+.nav-link {
+    text-align: center;
+}
+
+.nav-link i {
+    display: block!important;
+    vertical-align: -0.125em;
+    fill: currentColor;
+    font-size: 24px;
+}
+
+.text-small {
+    font-size: 85%;
+}

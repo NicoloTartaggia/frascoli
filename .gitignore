@@ -55,5 +55,5 @@
 .vscode/
 .DS_Store
 #.env
-/public/bundles/
-/public/assets/
+#/public/bundles/
+#/public/assets/

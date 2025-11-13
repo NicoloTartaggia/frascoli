@@ -1,0 +1,22 @@
+<h2>Conferma richiesta evento</h2>
+<p>Ciao {{ request.name }},</p>
+<p>Abbiamo ricevuto la tua richiesta per il {{ request.eventDateString }}.</p>
+<p>Ti contatteremo presto per confermare i dettagli.</p>
+<hr>
+<p><strong>Dettagli:</strong></p>
+<ul>
+  <li>Tipo evento: {{ request.eventType }}</li>
+  <li>Pranzo/Cena: {{ request.meal }}</li>
+  <li>Numero persone: {{ request.people }}</li>
+  <li>Servizi:</li>
+  {% if request.services is empty %}
+    <p>Nessuno</p>
+  {% else %}
+    <ul>
+    {% for s in request.services %}
+      <li>{{ s }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <li>Messaggio: {{ request.message is empty ? '/' : request.message }}</li>
+</ul>
