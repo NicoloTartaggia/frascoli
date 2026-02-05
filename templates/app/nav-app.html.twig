@@ -23,6 +23,12 @@
             </a>
         </li>
         #}
+        <li>
+            <a data-swup-transition="left" class="{{ current_path == 'organizza_evento' ? 'active'}}" href="{{ path('landing_booking') }}">
+                <span class="nav-help"></span>
+                Organizza il tuo evento
+            </a>
+        </li>
     </ul>
 
     <a  data-swup-transition="left" class="nc" href="{{ path('home') }}">
@@ -40,7 +46,7 @@
     <ul>
         <li><p class="sub">LOCALI</p></li>
         <li>
-            <a href="{{ path('locale', {'slug' : 'frascoli-padova'}) }}">Frascoli Bacaro Padova</a>
+            <a href="{{ path('locale', {'slug' : 'frascolino-monselice'}) }}">Frascolino Monselice</a>
             <br>
             <a class="secondary" href="{{ path('locale', {'slug' : 'frascoli-padova'}) }}">SCOPRI</a> <a class="secondary" data-no-swup href="{{ path('memu_singolo', {'slug' : 'frascoli-padova'}) }}">Menù</a> <a class="secondary" href="{{ path('prenota_singolo', {'slug' : 'frascoli-padova'}) }}">Prenota</a>
         </li>

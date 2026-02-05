@@ -1,292 +1,276 @@
-<!doctype html>
-<html lang="it">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Eventi & Richieste - Prenota</title>
-    <style>
-        :root{--accent:#c0392b;--bg:#fafafa;--card:#fff;--text:#222}
-        body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.4;color:var(--text);background:var(--bg);margin:0}
-        .hero{background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)), url('/images/hero-eventi.jpg') center/cover no-repeat; color:#fff;padding:90px 20px;text-align:center}
-        .container{max-width:1100px;margin:0 auto;padding:30px}
-        h1{margin:0 0 10px;font-size:36px}
-        p.lead{margin:0 0 20px;opacity:.95}
-        .grid{display:flex;gap:30px;flex-wrap:wrap}
-        .card{background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,.08);padding:24px;border-radius:10px;flex:1 1 360px}
-        label{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
-        input[type="text"],input[type="email"],input[type="date"],select,textarea,input[type="number"]{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px;font-size:14px}
-        button.btn{background:var(--accent);color:#fff;border:0;padding:12px 18px;border-radius:8px;font-weight:700;cursor:pointer}
-        .muted{color:#666;font-size:14px}
-        .flash{padding:12px;border-radius:8px;margin-bottom:16px}
-        .flash.success{background:#eaffef;border:1px solid #b7f0c4;color:#0b6b2b}
-        .flash.error{background:#ffecec;border:1px solid #f1b7b7;color:#7a1b1b}
-        @media(max-width:700px){h1{font-size:28px}.grid{flex-direction:column}}
-    </style>
-</head>
-<body>
-    <section class="hero">
-        <div class="container">
-            <h1>Organizza il tuo evento con noi</h1>
-            <p class="lead">Festeggia con menù su misura, location esclusiva e servizio dedicato. Compila il form per ricevere informazioni o prenotare una richiesta.</p>
-        </div>
-    </section>
+{% extends 'base-app.html.twig' %}
 
-    <main class="container" role="main">
-        {% for label, messages in app.flashes %}
-            {% for msg in messages %}
-                <div class="flash {{ label }}">{{ msg }}</div>
-            {% endfor %}
+{% block title %}
+    {{  include('app/seo.html.twig', {
+        titolo: 'Compila il form per richiedere festeggiare il tuo evento da noi | Frascolino Bacaro',
+        descrizione: ''
+    }) }}
+{% endblock %}
+
+{% block body %}
+
+<div class="hero-classic half-classic">
+    <div class="container">
+        <h1>Organizza il tuo evento con noi</h1>
+        <p class="lead">Festeggia con menù su misura, location esclusiva e servizio dedicato. Compila il form per ricevere informazioni o prenotare una richiesta.</p>
+    </div>
+</div>
+
+<main class="container" role="main">
+    {% for label, messages in app.flashes %}
+        {% for msg in messages %}
+            <div class="flash {{ label }}">{{ msg }}</div>
         {% endfor %}
+    {% endfor %}
 
-        <div class="grid">
-            <div class="card">
-                <form id="bookingForm" action="{{ path('landing_booking') }}" method="post" novalidate>
-                    <label for="name">Nome e Cognome</label>
-                    <input id="name" name="name" type="text" required>
+    <div class="grid-booking">
+        <div class="card">
+            <form id="bookingForm" action="{{ path('landing_booking') }}" method="post" novalidate>
+                <label for="name">Nome e Cognome</label>
+                <input id="name" name="name" type="text" required>
 
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" required>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
 
-                    <label for="phone">Telefono</label>
-                    <input id="phone" name="phone" type="text" placeholder="+39 ..." >
+                <label for="phone">Telefono</label>
+                <input id="phone" name="phone" type="text" placeholder="+39 ..." >
 
-                    <label for="localita">Località</label>
-                    <input id="localita" name="localita" type="text">
+                <label for="localita">Località</label>
+                <input id="localita" name="localita" type="text">
 
-                    <label for="date">Data evento</label>
-                    <input id="date" name="date" type="date">
+                <label for="date">Data evento</label>
+                <input id="date" name="date" type="date">
 
-                    <!-- Servizio bevande default to "Non richiesto" -->
-                    <label for="drink_service">Servizio bevande</label>
-                    <select id="drink_service" name="drink_service">
-                        <option value="Non richiesto" selected>Non richiesto</option>
-                        <option value="Non richiesto">Non richiesto</option>
-                        <option value="Alcolici">Alcolici</option>
-                        <option value="Analcolici">Analcolici</option>
-                        <option value="Alcolici + analcolici">Alcolici + analcolici</option>
+                <!-- Servizio bevande default to "Non richiesto" -->
+                <label for="drink_service">Servizio bevande</label>
+                <select id="drink_service" name="drink_service">
+                    <option value="Non richiesto" selected>Non richiesto</option>
+                    <option value="Non richiesto">Non richiesto</option>
+                    <option value="Alcolici">Alcolici</option>
+                    <option value="Analcolici">Analcolici</option>
+                    <option value="Alcolici + analcolici">Alcolici + analcolici</option>
+                </select>
+
+                <label for="event_type">Tipo di evento</label>
+                <select id="event_type" name="event_type" required>
+                    <option value="">Seleziona (Tipo di evento)</option>
+                    <option value="Evento privato">Evento privato</option>
+                    <option value="Evento a partecipazione libera">Evento a partecipazione libera</option>
+                    <option value="Evento aziendale">Evento aziendale</option>
+                </select>
+
+                <!-- Private / Free / Company sections (data-name used by JS) -->
+                <div id="privateSection" style="display:none;margin-top:8px;">
+                    <label for="meal">Pranzo/Cena</label>
+                    <select id="meal" data-name="meal">
+                        <option value="">Pranzo/Cena</option>
+                        <option value="Pranzo">Pranzo</option>
+                        <option value="Cena">Cena</option>
                     </select>
 
-                    <label for="event_type">Tipo di evento</label>
-                    <select id="event_type" name="event_type" required>
-                        <option value="">Seleziona (Tipo di evento)</option>
-                        <option value="Evento privato">Evento privato</option>
-                        <option value="Evento a partecipazione libera">Evento a partecipazione libera</option>
-                        <option value="Evento aziendale">Evento aziendale</option>
+                    <label for="people">Numero persone</label>
+                    <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                </div>
+
+                <div id="freeSection" style="display:none;margin-top:8px;">
+                    <label for="start_time">Orario di inizio</label>
+                    <select id="start_time" data-name="start_time">
+                        <option value="">Seleziona orario</option>
+                        {% for hh in 0..23 %}
+                            {% for mm in [0,30] %}
+                                <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                        <option value="23:59">23:59</option>
                     </select>
 
-                    <!-- Private / Free / Company sections (data-name used by JS) -->
-                    <div id="privateSection" style="display:none;margin-top:8px;">
-                        <label for="meal">Pranzo/Cena</label>
-                        <select id="meal" data-name="meal">
-                            <option value="">Pranzo/Cena</option>
-                            <option value="Pranzo">Pranzo</option>
-                            <option value="Cena">Cena</option>
-                        </select>
+                    <label for="end_time">Orario di fine</label>
+                    <select id="end_time" data-name="end_time">
+                        <option value="">Seleziona orario</option>
+                        {% for hh in 0..23 %}
+                            {% for mm in [0,30] %}
+                                <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                        <option value="23:59">23:59</option>
+                    </select>
+                </div>
 
-                        <label for="people">Numero persone</label>
-                        <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                <!-- companySection must be a separate sibling, not nested inside freeSection -->
+                <div id="companySection" style="display:none;margin-top:8px;">
+                    <label for="c_start_time">Orario di inizio</label>
+                    <select id="c_start_time" data-name="start_time">
+                        <option value="">Seleziona orario</option>
+                        {% for hh in 0..23 %}
+                            {% for mm in [0,30] %}
+                                <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                        <option value="23:59">23:59</option>
+                    </select>
+
+                    <label for="c_end_time">Orario di fine</label>
+                    <select id="c_end_time" data-name="end_time">
+                        <option value="">Seleziona orario</option>
+                        {% for hh in 0..23 %}
+                            {% for mm in [0,30] %}
+                                <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                        <option value="23:59">23:59</option>
+                    </select>
+
+                    <label for="c_people">Numero di persone</label>
+                    <input id="c_people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                </div>
+
+                <!-- Servizi aggiuntivi -->
+                <fieldset style="margin-top:16px;border:1px solid #eee;padding:14px;border-radius:8px">
+                    <legend style="font-weight:700;margin-bottom:8px">Servizi aggiuntivi</legend>
+
+                    <label><input type="checkbox" id="svc_birra" name="services[]" value="BIRRA ALLA SPINA"> BIRRA ALLA SPINA</label>
+                    <label><input type="checkbox" id="svc_dj" name="services[]" value="DJ / IMPIANTO AUDIO"> DJ / IMPIANTO AUDIO</label>
+                    <label><input type="checkbox" id="svc_cocktail" name="services[]" value="SERVIZIO COCKTAIL"> SERVIZIO COCKTAIL</label>
+                    <label><input type="checkbox" id="svc_rifiuti" name="services[]" value="SERVIZIO RIFIUTI"> SERVIZIO RIFIUTI</label>
+                    <label><input type="checkbox" id="svc_dolce" name="services[]" value="DOLCE"> DOLCE</label>
+                    <label><input type="checkbox" id="svc_box" name="services[]" value="BOX FRITTI APERITIVO"> BOX FRITTI APERITIVO</label>
+
+                    <div style="margin-left:18px;margin-top:6px">
+                        <label><input type="checkbox" id="svc_panche" name="services[]" value="PANCHE E TAVOLI"> PANCHE E TAVOLI <small style="color:#666"> (solo in aggiunta al servizio birra)</small></label>
+                        <label><input type="checkbox" id="svc_caffe" name="services[]" value="CAFFE"> CAFFE <small style="color:#666"> (solo in aggiunta al servizio birra o cocktail)</small></label>
                     </div>
+                </fieldset>
 
-                    <div id="freeSection" style="display:none;margin-top:8px;">
-                        <label for="start_time">Orario di inizio</label>
-                        <select id="start_time" data-name="start_time">
-                            <option value="">Seleziona orario</option>
-                            {% for hh in 0..23 %}
-                                {% for mm in [0,30] %}
-                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
-                                {% endfor %}
-                            {% endfor %}
-                            <option value="23:59">23:59</option>
-                        </select>
+                <label for="message">Messaggio / Richieste particolari</label>
+                <textarea id="message" name="message" rows="5"></textarea>
 
-                        <label for="end_time">Orario di fine</label>
-                        <select id="end_time" data-name="end_time">
-                            <option value="">Seleziona orario</option>
-                            {% for hh in 0..23 %}
-                                {% for mm in [0,30] %}
-                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
-                                {% endfor %}
-                            {% endfor %}
-                            <option value="23:59">23:59</option>
-                        </select>
-                    </div>
-
-                    <!-- companySection must be a separate sibling, not nested inside freeSection -->
-                    <div id="companySection" style="display:none;margin-top:8px;">
-                        <label for="c_start_time">Orario di inizio</label>
-                        <select id="c_start_time" data-name="start_time">
-                            <option value="">Seleziona orario</option>
-                            {% for hh in 0..23 %}
-                                {% for mm in [0,30] %}
-                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
-                                {% endfor %}
-                            {% endfor %}
-                            <option value="23:59">23:59</option>
-                        </select>
-
-                        <label for="c_end_time">Orario di fine</label>
-                        <select id="c_end_time" data-name="end_time">
-                            <option value="">Seleziona orario</option>
-                            {% for hh in 0..23 %}
-                                {% for mm in [0,30] %}
-                                    <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
-                                {% endfor %}
-                            {% endfor %}
-                            <option value="23:59">23:59</option>
-                        </select>
-
-                        <label for="c_people">Numero di persone</label>
-                        <input id="c_people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
-                    </div>
-
-                    <!-- Servizi aggiuntivi -->
-                    <fieldset style="margin-top:16px;border:1px solid #eee;padding:14px;border-radius:8px">
-                        <legend style="font-weight:700;margin-bottom:8px">Servizi aggiuntivi</legend>
-
-                        <label><input type="checkbox" id="svc_birra" name="services[]" value="BIRRA ALLA SPINA"> BIRRA ALLA SPINA</label>
-                        <label><input type="checkbox" id="svc_dj" name="services[]" value="DJ / IMPIANTO AUDIO"> DJ / IMPIANTO AUDIO</label>
-                        <label><input type="checkbox" id="svc_cocktail" name="services[]" value="SERVIZIO COCKTAIL"> SERVIZIO COCKTAIL</label>
-                        <label><input type="checkbox" id="svc_rifiuti" name="services[]" value="SERVIZIO RIFIUTI"> SERVIZIO RIFIUTI</label>
-                        <label><input type="checkbox" id="svc_dolce" name="services[]" value="DOLCE"> DOLCE</label>
-                        <label><input type="checkbox" id="svc_box" name="services[]" value="BOX FRITTI APERITIVO"> BOX FRITTI APERITIVO</label>
-
-                        <div style="margin-left:18px;margin-top:6px">
-                            <label><input type="checkbox" id="svc_panche" name="services[]" value="PANCHE E TAVOLI"> PANCHE E TAVOLI <small style="color:#666"> (solo in aggiunta al servizio birra)</small></label>
-                            <label><input type="checkbox" id="svc_caffe" name="services[]" value="CAFFE"> CAFFE <small style="color:#666"> (solo in aggiunta al servizio birra o cocktail)</small></label>
-                        </div>
-                    </fieldset>
-
-                    <label for="message">Messaggio / Richieste particolari</label>
-                    <textarea id="message" name="message" rows="5"></textarea>
-
-                    <button class="btn" type="submit">Invia richiesta</button>
-                </form>
-            </div>
-
-            <aside class="card">
-                <h3>Perché scegliere noi</h3>
-                <ul class="muted">
-                    <li>Menu personalizzati</li>
-                    <li>Allestimenti e servizio professionale</li>
-                    <li>Supporto nella logistica dell'evento</li>
-                </ul>
-
-                <h3>Contatti</h3>
-                <p class="muted">Telefono: <strong>+39 049 660 505</strong><br>Email: <strong>info@frascoli.it</strong></p>
-
-                <h3>Come funziona</h3>
-                <ol class="muted">
-                    <li>Inviaci la richiesta</li>
-                    <li>Confermiamo disponibilità e preventivo</li>
-                    <li>Confermi e organizziamo i dettagli</li>
-                </ol>
-            </aside>
+                <button class="btn" type="submit">Invia richiesta</button>
+            </form>
         </div>
-    </main>
 
-    <script>
-        (function(){
-            const eventType = document.getElementById('event_type');
-            const privateSection = document.getElementById('privateSection');
-            const freeSection = document.getElementById('freeSection');
-            const companySection = document.getElementById('companySection');
-            const bookingForm = document.getElementById('bookingForm');
+        <aside class="card">
+            <h3>Perché scegliere noi</h3>
+            <ul class="muted">
+                <li>Menu personalizzati</li>
+                <li>Allestimenti e servizio professionale</li>
+                <li>Supporto nella logistica dell'evento</li>
+            </ul>
 
-            function assignNames(section) {
-                Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
-                    el.name = el.getAttribute('data-name');
-                });
-                section.style.display = '';
-            }
+            <h3>Contatti</h3>
+            <p class="muted">Telefono: <strong>+39 049 660 505</strong><br>Email: <strong>info@frascoli.it</strong></p>
 
-            function clearAndUnassign(section) {
-                Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
-                    el.removeAttribute('name');
-                    if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
-                    else el.value = '';
-                });
-                section.style.display = 'none';
-            }
+            <h3>Come funziona</h3>
+            <ol class="muted">
+                <li>Inviaci la richiesta</li>
+                <li>Confermiamo disponibilità e preventivo</li>
+                <li>Confermi e organizziamo i dettagli</li>
+            </ol>
+        </aside>
+    </div>
+</main>
 
-            function handleEventTypeChange(v) {
-                if (v === 'Evento privato') {
-                    assignNames(privateSection);
-                    clearAndUnassign(freeSection);
-                    clearAndUnassign(companySection);
-                } else if (v === 'Evento a partecipazione libera') {
-                    assignNames(freeSection);
-                    clearAndUnassign(privateSection);
-                    clearAndUnassign(companySection);
-                } else if (v === 'Evento aziendale') {
-                    assignNames(companySection);
-                    clearAndUnassign(privateSection);
-                    clearAndUnassign(freeSection);
-                } else {
-                    clearAndUnassign(privateSection);
-                    clearAndUnassign(freeSection);
-                    clearAndUnassign(companySection);
-                }
-            }
+<script>
+    (function(){
+        const eventType = document.getElementById('event_type');
+        const privateSection = document.getElementById('privateSection');
+        const freeSection = document.getElementById('freeSection');
+        const companySection = document.getElementById('companySection');
+        const bookingForm = document.getElementById('bookingForm');
 
-            eventType && eventType.addEventListener('change', function() {
-                handleEventTypeChange(this.value);
+        function assignNames(section) {
+            Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
+                el.name = el.getAttribute('data-name');
             });
-            handleEventTypeChange(eventType ? eventType.value : '');
+            section.style.display = '';
+        }
 
-            // client-side submit validation
-            bookingForm && bookingForm.addEventListener('submit', function (e) {
-                // phone validation (if present)
-                const phone = document.getElementById('phone').value.trim();
-                if (phone !== '') {
-                    const digits = phone.replace(/\D/g,'');
-                    if (digits.length < 6) {
-                        e.preventDefault();
-                        alert('Telefono non valido. Inserire un numero di telefono corretto.');
-                        document.getElementById('phone').focus();
-                        return;
-                    }
-                }
+        function clearAndUnassign(section) {
+            Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
+                el.removeAttribute('name');
+                if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
+                else el.value = '';
+            });
+            section.style.display = 'none';
+        }
 
-                // event type required
-                const et = eventType.value;
-                if (!et) {
+        function handleEventTypeChange(v) {
+            if (v === 'Evento privato') {
+                assignNames(privateSection);
+                clearAndUnassign(freeSection);
+                clearAndUnassign(companySection);
+            } else if (v === 'Evento a partecipazione libera') {
+                assignNames(freeSection);
+                clearAndUnassign(privateSection);
+                clearAndUnassign(companySection);
+            } else if (v === 'Evento aziendale') {
+                assignNames(companySection);
+                clearAndUnassign(privateSection);
+                clearAndUnassign(freeSection);
+            } else {
+                clearAndUnassign(privateSection);
+                clearAndUnassign(freeSection);
+                clearAndUnassign(companySection);
+            }
+        }
+
+        eventType && eventType.addEventListener('change', function() {
+            handleEventTypeChange(this.value);
+        });
+        handleEventTypeChange(eventType ? eventType.value : '');
+
+        // client-side submit validation
+        bookingForm && bookingForm.addEventListener('submit', function (e) {
+            // phone validation (if present)
+            const phone = document.getElementById('phone').value.trim();
+            if (phone !== '') {
+                const digits = phone.replace(/\D/g,'');
+                if (digits.length < 6) {
                     e.preventDefault();
-                    alert('Seleziona il tipo di evento.');
-                    eventType.focus();
+                    alert('Telefono non valido. Inserire un numero di telefono corretto.');
+                    document.getElementById('phone').focus();
                     return;
                 }
+            }
 
-                // per-event validation
-                if (et === 'Evento privato') {
-                    const meal = document.getElementById('meal').value;
-                    const people = document.getElementById('people').value;
-                    if (!meal) {
-                        e.preventDefault(); alert('Seleziona Pranzo o Cena.'); document.getElementById('meal').focus(); return;
-                    }
-                    if (!people || parseInt(people,10) < 1) {
-                        e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('people').focus(); return;
-                    }
-                } else if (et === 'Evento a partecipazione libera') {
-                    const s = document.getElementById('start_time').value;
-                    const en = document.getElementById('end_time').value;
-                    if (!s || !en) {
-                        e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return;
-                    }
-                    const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
-                    if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
-                } else if (et === 'Evento aziendale') {
-                    const s = document.getElementById('c_start_time').value;
-                    const en = document.getElementById('c_end_time').value;
-                    const ppl = document.getElementById('c_people').value;
-                    if (!s || !en) { e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return; }
-                    const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
-                    if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
-                    if (!ppl || parseInt(ppl,10) < 1) { e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('c_people').focus(); return; }
+            // event type required
+            const et = eventType.value;
+            if (!et) {
+                e.preventDefault();
+                alert('Seleziona il tipo di evento.');
+                eventType.focus();
+                return;
+            }
+
+            // per-event validation
+            if (et === 'Evento privato') {
+                const meal = document.getElementById('meal').value;
+                const people = document.getElementById('people').value;
+                if (!meal) {
+                    e.preventDefault(); alert('Seleziona Pranzo o Cena.'); document.getElementById('meal').focus(); return;
                 }
+                if (!people || parseInt(people,10) < 1) {
+                    e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('people').focus(); return;
+                }
+            } else if (et === 'Evento a partecipazione libera') {
+                const s = document.getElementById('start_time').value;
+                const en = document.getElementById('end_time').value;
+                if (!s || !en) {
+                    e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return;
+                }
+                const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
+                if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
+            } else if (et === 'Evento aziendale') {
+                const s = document.getElementById('c_start_time').value;
+                const en = document.getElementById('c_end_time').value;
+                const ppl = document.getElementById('c_people').value;
+                if (!s || !en) { e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return; }
+                const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
+                if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
+                if (!ppl || parseInt(ppl,10) < 1) { e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('c_people').focus(); return; }
+            }
 
-                // if we reach here, allow normal submission
-            });
-        })();
-    </script>
-</body>
-</html>
+            // if we reach here, allow normal submission
+        });
+    })();
+</script>
+{% endblock %}

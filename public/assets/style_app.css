@@ -240,7 +240,7 @@ svg {
 nav.main {
     z-index: 2;
     position: absolute;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     display: grid;
     width: 100vw;
     align-content: center;
@@ -480,10 +480,6 @@ p.piw {
 
 .conttatti-body p.piw  {
     margin-bottom: 50px;
-}
-
-.link-muted {
-
 }
 
 .link-muted-alt {
@@ -971,8 +967,29 @@ footer.footer-expand div:nth-child(3) {
     background: #fafafa!important;
 }
 
+.grid-booking {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    width: 100%;
+}
 
+.grid-booking .card {
+    background: #ffffff;
+    border-radius: var(--radius);
+    padding: 30px;
+}
 
+.grid-booking .card form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
 
 @keyframes fade-left-small {
     0% {
