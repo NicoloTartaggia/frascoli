@@ -1,0 +1,72 @@
+{% extends 'base-app.html.twig' %}
+
+{% block title %}
+    {{  include('app/seo.html.twig', {titolo: locale.metaTitle, sottotitolo: "Powered by Goody", descrizione: locale.metaDescription}) }}
+{% endblock %}
+
+{% block body %}
+
+    {{ include('app/locali/locale-head.html.twig') }}
+
+    <section >
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+        <p class="sub">TACHEMO BEN</p>
+        <h2 class="condensed">COLAZIONE & PASTICCERIA BY GOODY</h2>
+        <p class="piw">
+            Da Frascolino Monselice la giornata prende forma fin dal mattino con la colazione, grazie a una
+            selezione di pasticceria artigianale firmata Goody e proposte di caﬀetteria curate.
+            Un momento pensato per chi ama iniziare la giornata con calma, per una pausa dolce prima del
+            lavoro o per ritrovarsi a metà mattina in un ambiente accogliente e informale.
+            La qualità delle materie prime e l’attenzione alla lavorazione rendono la colazione un vero rituale
+            quotidiano, capace di accompagnare ogni momento della mattina.
+        </p>
+
+
+        <div class="grid-locale">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_01.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_02.jpg') }}" alt="">
+            <img src="{{ asset('assets/static/locali/Frascolino_padova_03.jpg') }}" alt="">
+        </div>
+    </section>
+
+
+    <section class="fh">
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+        <div class="fhc">
+            <p class="sub">NA OMBRA E UN PIATTO</p>
+            <h2 class="condensed">DAL CALICE ALLA TAVOLA</h2>
+            <p class="piw">
+                Dal tardo pomeriggio Frascolino Monselice riscopre la sua anima più conviviale e si apre al
+                momento dell’aperitivo, con cicchetti ispirati alla tradizione veneziana e piatti pensati per essere
+                condivisi. Crostini, polpette di carne, pesce e verdure, piccole preparazioni di cucina e proposte stagionali
+                accompagnano le ombre e una selezione di spritz che va dallo storico Spritz Select alle versioni
+                realizzate con prodotti del territorio, fino al nostro aperitivo signature, il Canaèto.
+                Con la sera, il locale evolve naturalmente in ristorante, oﬀrendo una cucina più strutturata ma
+                sempre fedele allo spirito di Frascolino: piatti curati, ingredienti selezionati e un’atmosfera
+                rilassata, ideale per vivere la cena senza fretta.
+            </p>
+        </div>
+    </section>
+
+    <section class="fh">
+        <div class="separator"><img src="{{ asset('assets/static/separator.png') }}" alt=""></div>
+
+        <div class="fhc">
+            <p class="sub">FEMO FESTA</p>
+            <h2 class="condensed">EVENTI & ATMOSFERA</h2>
+            <p class="piw">
+                Frascolino Monselice è un luogo in continuo movimento, dove ogni serata può trasformarsi in
+                qualcosa di speciale. Serate a tema, appuntamenti speciali e novità nascono e cambiano nel tempo: per questo il modo
+                migliore per non perdere nulla è seguirci sui nostri canali social. Un invito a tornare, ritrovarsi e vivere Frascolino ogni volta in modo diverso, dalla colazione alla
+                sera.
+            </p>
+            <a class="btn-main" href="{{ path('prenota_singolo', {'slug' : locale.slug}) }}">
+                Prenota ora
+            </a>
+        </div>
+    </section>
+
+    {{ include('app/locali/locale-footer.html.twig') }}
+
+{% endblock %}

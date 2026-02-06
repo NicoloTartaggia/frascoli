@@ -240,7 +240,7 @@ svg {
 nav.main {
     z-index: 2;
     position: absolute;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     display: grid;
     width: 100vw;
     align-content: center;
@@ -320,6 +320,9 @@ nav.main .nl{
     flex-direction: row;
     list-style: none;
     padding-left: var(--padding-nav);
+}
+nav.main .nl {
+    justify-self: start;
 }
 
 nav.main .nl li:not(:first-child) {

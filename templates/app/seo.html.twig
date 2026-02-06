@@ -1,4 +1,9 @@
-<title>{{ titolo }}</title>
+<title>
+    {{ titolo }}
+    {% if sottotitolo is defined %}
+        – {{ sottotitolo }}
+    {% endif %}
+</title>
 <meta name="description" content="{{ descrizione }}" />
 <meta property="og:title" content="{{ titolo }}" />
 <meta property="og:description" content="{{ descrizione }}" />
