@@ -9,19 +9,79 @@
 
 {% block body %}
 
-<div class="hero-classic half-classic">
-    <div class="container">
-        <h1>Organizza il tuo evento con noi</h1>
-        <p class="lead">Festeggia con menù su misura, location esclusiva e servizio dedicato. Compila il form per ricevere informazioni o prenotare una richiesta.</p>
-    </div>
+<div class="hero-classic half-classic hero-m-full">
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color-interpolation-filters="sRGB">
+        <filter id="fluted" primitiveUnits="objectBoundingBox">
+            <feImage x="0" y="0" in="blur_0" result="image_0" crossorigin="anonymous" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' color-interpolation-filters='sRGB'>
+    <g>
+      <rect width='1' height='1' fill='black' />
+      <rect width='1' height='1' fill='url(%23red)' style='mix-blend-mode:screen' />
+      <rect width='1' height='1' fill='url(%23green)' style='mix-blend-mode:screen' />
+      <rect width='1' height='1' fill='url(%23yellow)' style='mix-blend-mode:screen' />
+    </g>
+    <defs>
+      <radialGradient id='yellow' cx='0' cy='0' r='1' >
+        <stop stop-color='yellow' />
+        <stop stop-color='yellow' offset='1' stop-opacity='0' />
+      </radialGradient>
+      <radialGradient id='green' cx='1' cy='0' r='1' >
+        <stop stop-color='green' />
+        <stop stop-color='green' offset='1' stop-opacity='0' />
+      </radialGradient>
+      <radialGradient id='red' cx='0' cy='1' r='1' >
+        <stop stop-color='red' />
+        <stop stop-color='red' offset='1' stop-opacity='0' />
+      </radialGradient>
+    </defs>
+  </svg>" preserveAspectRatio="none meet" width=".02" height="1" />
+            <feTile in="image_0" result="tile_0" />
+            <feGaussianBlur stdDeviation=".002" edgeMode="none" in="tile_0" result="bar_smoothness" x="0" y="0" />
+            <feGaussianBlur stdDeviation=".03" edgeMode="none" in="SourceGraphic" result="blur_glass" />
+            <feDisplacementMap scale=".08" xChannelSelector="R" yChannelSelector="G" in="SourceGraphic" in2="bar_smoothness" result="displacement_0" />
+        </filter>
+    </svg>
+
+    <video autoplay="" loop="" muted="" playsinline="" defaultmuted="" preload="none">
+        {# <source src="{{ asset('assets/static/hero1.webm') }}" type="video/webm"> #}
+        <source src="{{ asset('assets/static/hero2.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="glass"></div>
+
+    <h1 class="condensed">Organizza il tuo evento con noi</h1>
+    <p>
+        Festeggia con menù su misura, location esclusiva e servizio dedicato. Compila il form per ricevere informazioni o prenotare una richiesta.
+    </p>
+
+    <hr size="300" class="vertical-scroll" />
 </div>
 
-<main class="container" role="main">
+<main class="container booking-main" role="main">
     {% for label, messages in app.flashes %}
         {% for msg in messages %}
             <div class="flash {{ label }}">{{ msg }}</div>
         {% endfor %}
     {% endfor %}
+
+    <div class="card">
+        <h3>Perché scegliere noi</h3>
+        <ul class="muted">
+            <li>Menu personalizzati</li>
+            <li>Allestimenti e servizio professionale</li>
+            <li>Supporto nella logistica dell'evento</li>
+        </ul>
+
+        <h3>Contatti</h3>
+        <p class="muted">Telefono: <strong>+39 049 660 505</strong><br>Email: <strong>info@frascoli.it</strong></p>
+
+        <h3>Come funziona</h3>
+        <ol class="muted">
+            <li>Inviaci la richiesta</li>
+            <li>Confermiamo disponibilità e preventivo</li>
+            <li>Confermi e organizziamo i dettagli</li>
+        </ol>
+    </div>
 
     <div class="grid-booking">
         <div class="card">
@@ -134,38 +194,16 @@
                     <label><input type="checkbox" id="svc_rifiuti" name="services[]" value="SERVIZIO RIFIUTI"> SERVIZIO RIFIUTI</label>
                     <label><input type="checkbox" id="svc_dolce" name="services[]" value="DOLCE"> DOLCE</label>
                     <label><input type="checkbox" id="svc_box" name="services[]" value="BOX FRITTI APERITIVO"> BOX FRITTI APERITIVO</label>
-
-                    <div style="margin-left:18px;margin-top:6px">
-                        <label><input type="checkbox" id="svc_panche" name="services[]" value="PANCHE E TAVOLI"> PANCHE E TAVOLI <small style="color:#666"> (solo in aggiunta al servizio birra)</small></label>
-                        <label><input type="checkbox" id="svc_caffe" name="services[]" value="CAFFE"> CAFFE <small style="color:#666"> (solo in aggiunta al servizio birra o cocktail)</small></label>
-                    </div>
+                    <label><input type="checkbox" id="svc_panche" name="services[]" value="PANCHE E TAVOLI"> PANCHE E TAVOLI <small style="color:#666"> (solo in aggiunta al servizio birra)</small></label>
+                    <label><input type="checkbox" id="svc_caffe" name="services[]" value="CAFFE"> CAFFE <small style="color:#666"> (solo in aggiunta al servizio birra o cocktail)</small></label>
                 </fieldset>
 
                 <label for="message">Messaggio / Richieste particolari</label>
                 <textarea id="message" name="message" rows="5"></textarea>
 
-                <button class="btn" type="submit">Invia richiesta</button>
+                <button class="btn-main" type="submit">Invia richiesta</button>
             </form>
         </div>
-
-        <aside class="card">
-            <h3>Perché scegliere noi</h3>
-            <ul class="muted">
-                <li>Menu personalizzati</li>
-                <li>Allestimenti e servizio professionale</li>
-                <li>Supporto nella logistica dell'evento</li>
-            </ul>
-
-            <h3>Contatti</h3>
-            <p class="muted">Telefono: <strong>+39 049 660 505</strong><br>Email: <strong>info@frascoli.it</strong></p>
-
-            <h3>Come funziona</h3>
-            <ol class="muted">
-                <li>Inviaci la richiesta</li>
-                <li>Confermiamo disponibilità e preventivo</li>
-                <li>Confermi e organizziamo i dettagli</li>
-            </ol>
-        </aside>
     </div>
 </main>
 

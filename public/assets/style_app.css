@@ -85,6 +85,15 @@ button.btn-main {
     border: none;
 }
 
+.grid-booking button.btn-main {
+    background: black;
+    padding: 15px 35px;
+    color: white;
+    border-radius: 50px;
+    font-size: 14px;
+    border: none;
+}
+
 .hero-classic h1.condensed {
     filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.45));
 }
@@ -972,25 +981,24 @@ footer.footer-expand div:nth-child(3) {
 
 .grid-booking {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
     align-items: flex-start;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
     width: 100%;
+    margin: 2rem 0;
 }
 
 .grid-booking .card {
     background: #ffffff;
     border-radius: var(--radius);
-    padding: 30px;
+    padding: 2rem;
 }
 
 .grid-booking .card form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
     width: 100%;
 }
 
@@ -1078,4 +1086,85 @@ footer.footer-expand div:nth-child(3) {
     .fh {
         height: 80vh;
     }
+}
+
+
+/* =========================
+   BOOKING FORM STYLES
+========================= */
+
+.booking-main {
+    width: 100%;
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.grid-booking form label {
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+}
+
+.grid-booking form input,
+.grid-booking form select,
+.grid-booking form textarea {
+    width: 100%;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0.375rem;
+    border: 1px solid #dcdcdc;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+.grid-booking form textarea {
+    resize: vertical;
+}
+
+.grid-booking form input:focus,
+.grid-booking form select:focus,
+.grid-booking form textarea:focus {
+    outline: none;
+    border-color: #1e1e26;
+}
+
+.muted {
+    color: #6f6f6f;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.flash {
+    padding: 0.9375rem 1.25rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    font-size: 0.875rem;
+}
+
+.flash.success {
+    background: #e6f6ea;
+    color: #1f7a3f;
+    border: 1px solid #b6e2c5;
+}
+
+.flash.error {
+    background: #fdeaea;
+    color: #a12626;
+    border: 1px solid #f5c2c2;
+}
+
+fieldset label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+}
+
+fieldset input[type="checkbox"] {
+    margin-right: 0.375rem;
 }
