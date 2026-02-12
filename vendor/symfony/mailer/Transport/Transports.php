@@ -23,31 +23,31 @@ use Symfony\Component\Mime\RawMessage;
  */
 final class Transports implements TransportInterface
 {
-    /**
-     * @var array<string, TransportInterface>
-     */
-    private array $transports = [];
-    private TransportInterface $default;
+    private $transports;
+    private $default;
 
     /**
-     * @param iterable<string, TransportInterface> $transports
+     * @param TransportInterface[] $transports
      */
     public function __construct(iterable $transports)
     {
+        $this->transports = [];
         foreach ($transports as $name => $transport) {
-            $this->default ??= $transport;
+            if (null === $this->default) {
+                $this->default = $transport;
+            }
             $this->transports[$name] = $transport;
         }
 
         if (!$this->transports) {
-            throw new LogicException(\sprintf('"%s" must have at least one transport configured.', __CLASS__));
+            throw new LogicException(sprintf('"%s" must have at least one transport configured.', __CLASS__));
         }
     }
 
     public function send(RawMessage $message, ?Envelope $envelope = null): ?SentMessage
     {
         /** @var Message $message */
-        if (RawMessage::class === $message::class || !$message->getHeaders()->has('X-Transport')) {
+        if (RawMessage::class === \get_class($message) || !$message->getHeaders()->has('X-Transport')) {
             return $this->default->send($message, $envelope);
         }
 
@@ -56,7 +56,7 @@ final class Transports implements TransportInterface
         $headers->remove('X-Transport');
 
         if (!isset($this->transports[$transport])) {
-            throw new InvalidArgumentException(\sprintf('The "%s" transport does not exist (available transports: "%s").', $transport, implode('", "', array_keys($this->transports))));
+            throw new InvalidArgumentException(sprintf('The "%s" transport does not exist (available transports: "%s").', $transport, implode('", "', array_keys($this->transports))));
         }
 
         try {

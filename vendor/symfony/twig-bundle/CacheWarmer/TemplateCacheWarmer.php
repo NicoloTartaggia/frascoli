@@ -24,9 +24,9 @@ use Twig\Error\Error;
  */
 class TemplateCacheWarmer implements CacheWarmerInterface, ServiceSubscriberInterface
 {
-    private ContainerInterface $container;
-    private Environment $twig;
-    private iterable $iterator;
+    private $container;
+    private $twig;
+    private $iterator;
 
     public function __construct(ContainerInterface $container, iterable $iterator)
     {
@@ -36,16 +36,26 @@ class TemplateCacheWarmer implements CacheWarmerInterface, ServiceSubscriberInte
     }
 
     /**
-     * @param string|null $buildDir
+     * {@inheritdoc}
+     *
+     * @return string[] A list of template files to preload on PHP 7.4+
      */
-    public function warmUp(string $cacheDir /* , string $buildDir = null */): array
+    public function warmUp(string $cacheDir)
     {
-        $this->twig ??= $this->container->get('twig');
+        if (null === $this->twig) {
+            $this->twig = $this->container->get('twig');
+        }
+
+        $files = [];
 
         foreach ($this->iterator as $template) {
             try {
-                $this->twig->load($template);
-            } catch (Error) {
+                $template = $this->twig->load($template);
+
+                if (\is_callable([$template, 'unwrap'])) {
+                    $files[] = (new \ReflectionClass($template->unwrap()))->getFileName();
+                }
+            } catch (Error $e) {
                 /*
                  * Problem during compilation, give up for this template (e.g. syntax errors).
                  * Failing silently here allows to ignore templates that rely on functions that aren't available in
@@ -57,15 +67,21 @@ class TemplateCacheWarmer implements CacheWarmerInterface, ServiceSubscriberInte
             }
         }
 
-        return [];
+        return $files;
     }
 
-    public function isOptional(): bool
+    /**
+     * {@inheritdoc}
+     */
+    public function isOptional()
     {
         return true;
     }
 
-    public static function getSubscribedServices(): array
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedServices()
     {
         return [
             'twig' => Environment::class,

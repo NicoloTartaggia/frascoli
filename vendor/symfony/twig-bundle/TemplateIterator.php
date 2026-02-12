@@ -25,28 +25,25 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class TemplateIterator implements \IteratorAggregate
 {
-    private KernelInterface $kernel;
-    private \Traversable $templates;
-    private array $paths;
-    private ?string $defaultPath;
-    private array $namePatterns;
+    private $kernel;
+    private $templates;
+    private $paths;
+    private $defaultPath;
 
     /**
-     * @param array       $paths        Additional Twig paths to warm
-     * @param string|null $defaultPath  The directory where global templates can be stored
-     * @param string[]    $namePatterns Pattern of file names
+     * @param array       $paths       Additional Twig paths to warm
+     * @param string|null $defaultPath The directory where global templates can be stored
      */
-    public function __construct(KernelInterface $kernel, array $paths = [], ?string $defaultPath = null, array $namePatterns = [])
+    public function __construct(KernelInterface $kernel, array $paths = [], ?string $defaultPath = null)
     {
         $this->kernel = $kernel;
         $this->paths = $paths;
         $this->defaultPath = $defaultPath;
-        $this->namePatterns = $namePatterns;
     }
 
     public function getIterator(): \Traversable
     {
-        if (isset($this->templates)) {
+        if (null !== $this->templates) {
             return $this->templates;
         }
 
@@ -85,7 +82,7 @@ class TemplateIterator implements \IteratorAggregate
         }
 
         $templates = [];
-        foreach (Finder::create()->files()->followLinks()->in($dir)->exclude($excludeDirs)->name($this->namePatterns) as $file) {
+        foreach (Finder::create()->files()->followLinks()->in($dir)->exclude($excludeDirs) as $file) {
             $templates[] = (null !== $namespace ? '@'.$namespace.'/' : '').str_replace('\\', '/', $file->getRelativePathname());
         }
 

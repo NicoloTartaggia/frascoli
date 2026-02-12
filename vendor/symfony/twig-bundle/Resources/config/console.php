@@ -27,7 +27,7 @@ return static function (ContainerConfigurator $container) {
             ->tag('console.command')
 
         ->set('twig.command.lint', LintCommand::class)
-            ->args([service('twig'), abstract_arg('File name pattern')])
+            ->args([service('twig')])
             ->tag('console.command')
     ;
 };

@@ -33,7 +33,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
         $this->client = $client;
         if (null === $client) {
             if (!class_exists(HttpClient::class)) {
-                throw new \LogicException(\sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));
+                throw new \LogicException(sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));
             }
 
             $this->client = HttpClient::create();
@@ -45,7 +45,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
     /**
      * @return $this
      */
-    public function setHost(?string $host): static
+    public function setHost(?string $host)
     {
         $this->host = $host;
 
@@ -55,7 +55,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
     /**
      * @return $this
      */
-    public function setPort(?int $port): static
+    public function setPort(?int $port)
     {
         $this->port = $port;
 
@@ -66,6 +66,7 @@ abstract class AbstractHttpTransport extends AbstractTransport
 
     protected function doSend(SentMessage $message): void
     {
+        $response = null;
         try {
             $response = $this->doSendHttp($message);
             $message->appendDebug($response->getInfo('debug') ?? '');

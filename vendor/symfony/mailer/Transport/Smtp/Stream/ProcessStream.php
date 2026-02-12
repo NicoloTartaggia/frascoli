@@ -23,15 +23,16 @@ use Symfony\Component\Mailer\Exception\TransportException;
  */
 final class ProcessStream extends AbstractStream
 {
-    private string $command;
-    private bool $interactive = false;
+    private $command;
 
-    public function setCommand(string $command): void
+    private $interactive = false;
+
+    public function setCommand(string $command)
     {
         $this->command = $command;
     }
 
-    public function setInteractive(bool $interactive): void
+    public function setInteractive(bool $interactive)
     {
         $this->interactive = $interactive;
     }
