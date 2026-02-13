@@ -1,2 +1,0 @@
-public/assets/static/*.mp4 filter=lfs diff=lfs merge=lfs -text
-public/assets/static/*.webm filter=lfs diff=lfs merge=lfs -text
