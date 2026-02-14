@@ -9,7 +9,7 @@
 
 {% block body %}
 
-<div class="hero-classic half-classic hero-m-full">
+<div class="hero-classic half-classic hero-m-full hero-m-booking">
 
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" color-interpolation-filters="sRGB">
         <filter id="fluted" primitiveUnits="objectBoundingBox">
@@ -101,6 +101,13 @@
                 <label for="date">Data evento</label>
                 <input id="date" name="date" type="date">
 
+                <label for="sede">Sede</label>
+                <select id="sede" name="sede" required>
+                    <option value="" disabled selected>Seleziona una sede</option>
+                    <option value="monselice">Monselice</option>
+                    <option value="padova">Padova</option>
+                </select>
+
                 <!-- Servizio bevande default to "Non richiesto" -->
                 <label for="drink_service">Servizio bevande</label>
                 <select id="drink_service" name="drink_service">
@@ -113,28 +120,28 @@
 
                 <label for="event_type">Tipo di evento</label>
                 <select id="event_type" name="event_type" required>
-                    <option value="">Seleziona (Tipo di evento)</option>
+                    <option value="" disabled selected>Seleziona (Tipo di evento)</option>
                     <option value="Evento privato">Evento privato</option>
                     <option value="Evento a partecipazione libera">Evento a partecipazione libera</option>
                     <option value="Evento aziendale">Evento aziendale</option>
                 </select>
 
                 <!-- Private / Free / Company sections (data-name used by JS) -->
-                <div id="privateSection" style="display:none;margin-top:8px;">
+                <div id="privateSection" style="display:none;">
                     <label for="meal">Pranzo/Cena</label>
-                    <select id="meal" data-name="meal">
+                    <select id="meal" data-name="meal" style="margin-top:0.75rem;margin-bottom:0.75rem;">
                         <option value="">Pranzo/Cena</option>
                         <option value="Pranzo">Pranzo</option>
                         <option value="Cena">Cena</option>
                     </select>
 
                     <label for="people">Numero persone</label>
-                    <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                    <input id="people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone" style="margin-top:0.75rem;margin-bottom:0.75rem;">
                 </div>
 
-                <div id="freeSection" style="display:none;margin-top:8px;">
+                <div id="freeSection" style="display:none;">
                     <label for="start_time">Orario di inizio</label>
-                    <select id="start_time" data-name="start_time">
+                    <select id="start_time" data-name="start_time" style="margin-top:0.75rem;margin-bottom:0.75rem;">
                         <option value="">Seleziona orario</option>
                         {% for hh in 0..23 %}
                             {% for mm in [0,30] %}
@@ -144,9 +151,9 @@
                         <option value="23:59">23:59</option>
                     </select>
 
-                    <label for="end_time">Orario di fine</label>
-                    <select id="end_time" data-name="end_time">
-                        <option value="">Seleziona orario</option>
+                    <label for="end_time" style="margin-top:0.75rem;">Orario di fine</label>
+                    <select id="end_time" data-name="end_time" style="margin-top:0.75rem;>
+                        <option value=""">Seleziona orario</option>
                         {% for hh in 0..23 %}
                             {% for mm in [0,30] %}
                                 <option value="{{ '%02d:%02d'|format(hh, mm) }}">{{ '%02d:%02d'|format(hh, mm) }}</option>
@@ -157,9 +164,9 @@
                 </div>
 
                 <!-- companySection must be a separate sibling, not nested inside freeSection -->
-                <div id="companySection" style="display:none;margin-top:8px;">
+                <div id="companySection" style="display:none;">
                     <label for="c_start_time">Orario di inizio</label>
-                    <select id="c_start_time" data-name="start_time">
+                    <select id="c_start_time" data-name="start_time" style="margin-top:0.75rem;margin-bottom:0.75rem;">
                         <option value="">Seleziona orario</option>
                         {% for hh in 0..23 %}
                             {% for mm in [0,30] %}
@@ -169,8 +176,8 @@
                         <option value="23:59">23:59</option>
                     </select>
 
-                    <label for="c_end_time">Orario di fine</label>
-                    <select id="c_end_time" data-name="end_time">
+                    <label for="c_end_time" style="margin-top:0.75rem;">Orario di fine</label>
+                    <select id="c_end_time" data-name="end_time" style="margin-top:0.75rem;margin-bottom:0.75rem;">
                         <option value="">Seleziona orario</option>
                         {% for hh in 0..23 %}
                             {% for mm in [0,30] %}
@@ -181,7 +188,7 @@
                     </select>
 
                     <label for="c_people">Numero di persone</label>
-                    <input id="c_people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone">
+                    <input id="c_people" data-name="people" type="number" min="1" step="1" placeholder="Inserisci numero persone" style="margin-top:0.75rem;">
                 </div>
 
                 <!-- Servizi aggiuntivi -->
