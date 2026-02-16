@@ -152,7 +152,7 @@
                     </select>
 
                     <label for="end_time" style="margin-top:0.75rem;">Orario di fine</label>
-                    <select id="end_time" data-name="end_time" style="margin-top:0.75rem;>
+                    <select id="end_time" data-name="end_time" style="margin-top:0.75rem;">
                         <option value=""">Seleziona orario</option>
                         {% for hh in 0..23 %}
                             {% for mm in [0,30] %}
@@ -215,60 +215,81 @@
 </main>
 
 <script>
-    (function(){
-        const eventType = document.getElementById('event_type');
-        const privateSection = document.getElementById('privateSection');
-        const freeSection = document.getElementById('freeSection');
-        const companySection = document.getElementById('companySection');
-        const bookingForm = document.getElementById('bookingForm');
+document.addEventListener('DOMContentLoaded', function () {
 
-        function assignNames(section) {
-            Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
-                el.name = el.getAttribute('data-name');
-            });
-            section.style.display = '';
-        }
+    const eventType = document.getElementById('event_type');
+    const privateSection = document.getElementById('privateSection');
+    const freeSection = document.getElementById('freeSection');
+    const companySection = document.getElementById('companySection');
+    const bookingForm = document.getElementById('bookingForm');
 
-        function clearAndUnassign(section) {
-            Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
-                el.removeAttribute('name');
-                if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
-                else el.value = '';
-            });
-            section.style.display = 'none';
-        }
+    if (!eventType) return;
 
-        function handleEventTypeChange(v) {
-            if (v === 'Evento privato') {
+    function assignNames(section) {
+        Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
+            el.name = el.getAttribute('data-name');
+        });
+        section.style.display = '';
+    }
+
+    function clearAndUnassign(section) {
+        Array.from(section.querySelectorAll('[data-name]')).forEach(el => {
+            el.removeAttribute('name');
+            if (el.tagName.toLowerCase() === 'select') {
+                el.selectedIndex = 0;
+            } else {
+                el.value = '';
+            }
+        });
+        section.style.display = 'none';
+    }
+
+    function handleEventTypeChange(value) {
+        switch (value) {
+            case 'Evento privato':
                 assignNames(privateSection);
                 clearAndUnassign(freeSection);
                 clearAndUnassign(companySection);
-            } else if (v === 'Evento a partecipazione libera') {
+                break;
+
+            case 'Evento a partecipazione libera':
                 assignNames(freeSection);
                 clearAndUnassign(privateSection);
                 clearAndUnassign(companySection);
-            } else if (v === 'Evento aziendale') {
+                break;
+
+            case 'Evento aziendale':
                 assignNames(companySection);
                 clearAndUnassign(privateSection);
                 clearAndUnassign(freeSection);
-            } else {
+                break;
+
+            default:
                 clearAndUnassign(privateSection);
                 clearAndUnassign(freeSection);
                 clearAndUnassign(companySection);
-            }
         }
+    }
 
-        eventType && eventType.addEventListener('change', function() {
-            handleEventTypeChange(this.value);
-        });
-        handleEventTypeChange(eventType ? eventType.value : '');
+    eventType.addEventListener('change', function () {
+        handleEventTypeChange(this.value);
+    });
 
-        // client-side submit validation
-        bookingForm && bookingForm.addEventListener('submit', function (e) {
-            // phone validation (if present)
+    // Handle restored values (mobile Safari / back-forward cache)
+    function syncInitialState() {
+        handleEventTypeChange(eventType.value);
+    }
+
+    setTimeout(syncInitialState, 0);
+    window.addEventListener('pageshow', syncInitialState);
+
+    // Client-side validation
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+
             const phone = document.getElementById('phone').value.trim();
             if (phone !== '') {
-                const digits = phone.replace(/\D/g,'');
+                const digits = phone.replace(/\D/g, '');
                 if (digits.length < 6) {
                     e.preventDefault();
                     alert('Telefono non valido. Inserire un numero di telefono corretto.');
@@ -277,7 +298,6 @@
                 }
             }
 
-            // event type required
             const et = eventType.value;
             if (!et) {
                 e.preventDefault();
@@ -286,36 +306,72 @@
                 return;
             }
 
-            // per-event validation
+            const toMinutes = t => {
+                const p = t.split(':');
+                return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+            };
+
             if (et === 'Evento privato') {
                 const meal = document.getElementById('meal').value;
                 const people = document.getElementById('people').value;
+
                 if (!meal) {
-                    e.preventDefault(); alert('Seleziona Pranzo o Cena.'); document.getElementById('meal').focus(); return;
+                    e.preventDefault();
+                    alert('Seleziona Pranzo o Cena.');
+                    document.getElementById('meal').focus();
+                    return;
                 }
-                if (!people || parseInt(people,10) < 1) {
-                    e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('people').focus(); return;
+
+                if (!people || parseInt(people, 10) < 1) {
+                    e.preventDefault();
+                    alert('Inserisci un numero di persone valido.');
+                    document.getElementById('people').focus();
+                    return;
                 }
+
             } else if (et === 'Evento a partecipazione libera') {
                 const s = document.getElementById('start_time').value;
                 const en = document.getElementById('end_time').value;
+
                 if (!s || !en) {
-                    e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return;
+                    e.preventDefault();
+                    alert('Seleziona orario di inizio e fine.');
+                    return;
                 }
-                const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
-                if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
+
+                if (toMinutes(s) > toMinutes(en)) {
+                    e.preventDefault();
+                    alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.');
+                    return;
+                }
+
             } else if (et === 'Evento aziendale') {
                 const s = document.getElementById('c_start_time').value;
                 const en = document.getElementById('c_end_time').value;
                 const ppl = document.getElementById('c_people').value;
-                if (!s || !en) { e.preventDefault(); alert('Seleziona orario di inizio e fine.'); return; }
-                const toM = t => { const p = t.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); };
-                if (toM(s) > toM(en)) { e.preventDefault(); alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.'); return; }
-                if (!ppl || parseInt(ppl,10) < 1) { e.preventDefault(); alert('Inserisci un numero di persone valido.'); document.getElementById('c_people').focus(); return; }
-            }
 
-            // if we reach here, allow normal submission
+                if (!s || !en) {
+                    e.preventDefault();
+                    alert('Seleziona orario di inizio e fine.');
+                    return;
+                }
+
+                if (toMinutes(s) > toMinutes(en)) {
+                    e.preventDefault();
+                    alert('Orario di inizio deve essere precedente o uguale all\'orario di fine.');
+                    return;
+                }
+
+                if (!ppl || parseInt(ppl, 10) < 1) {
+                    e.preventDefault();
+                    alert('Inserisci un numero di persone valido.');
+                    document.getElementById('c_people').focus();
+                    return;
+                }
+            }
         });
-    })();
+    }
+
+});
 </script>
 {% endblock %}
