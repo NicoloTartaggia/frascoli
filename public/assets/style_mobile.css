@@ -254,8 +254,28 @@
         height: 85vh;
     }
 
+
     .hero-m-full {
         height: 100vh;
+    }
+
+    .hero-locale {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-locale video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .glass {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
     }
 
     .hero-m-booking {
