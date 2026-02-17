@@ -376,5 +376,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+// Auto-hide flash messages after 10 seconds
+document.querySelectorAll('.flash').forEach(function(flashElement) {
+    setTimeout(function() {
+        flashElement.style.transition = 'opacity 0.5s ease';
+        flashElement.style.opacity = '0';
+        setTimeout(function() {
+            flashElement.remove();
+        }, 500);
+    }, 10000);
+});
+
 </script>
 {% endblock %}

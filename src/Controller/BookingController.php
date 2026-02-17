@@ -9,13 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class BookingController extends AbstractController
 {
     /**
      * @Route("/eventi", name="landing_booking", methods={"GET","POST"})
      */
-    public function landing(Request $request, EventRequestBuilderInterface $builder, EntityManagerInterface $em): Response
+    public function landing(Request $request, EventRequestBuilderInterface $builder, EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         if ($request->isMethod('POST')) {
             // build entity from request
@@ -64,6 +66,17 @@ class BookingController extends AbstractController
             // persist
             $em->persist($eventRequest);
             $em->flush();
+
+            // send email notification
+            $email = (new Email())
+                ->from('nicolo.tartaggia@gmail.com')
+                ->to('nicolo.tartaggia@gmail.com')
+                ->subject('Nuova richiesta di evento')
+                ->html($this->renderView('emails/event_request_owner.html.twig', [
+                    'request' => $eventRequest
+                ]));
+
+            $mailer->send($email);
 
             $this->addFlash('success', 'Richiesta salvata. Ti contatteremo a breve.');
             return $this->redirectToRoute('landing_booking');
