@@ -337,4 +337,7 @@
         margin-top: 2rem;
     }
 
+    fieldset .additional-service-item input {
+        width: 30%;
+    }   
 }

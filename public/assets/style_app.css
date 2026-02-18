@@ -1173,3 +1173,21 @@ fieldset label {
 fieldset input[type="checkbox"] {
     margin-right: 0.375rem;
 }
+
+.additional-service-item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.additional-service-item span {
+    text-align: left;
+}
+
+fieldset .additional-service-item input {
+    margin: 0;
+    flex-shrink: 0;
+    width: 90%;
+}
