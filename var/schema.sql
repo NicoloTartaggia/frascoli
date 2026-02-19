@@ -73,4 +73,24 @@ CREATE TABLE user (
 INSERT INTO user (id, email, nome, cognome, img_profilo, roles, password) VALUES
 (1,'nicolo.tartaggia@gmail.com','Nicolò','Tartaggia',NULL,'["ROLE_ADMIN", "ROLE_SUPERADMIN"]','$2y$13$LfjWxkSIcxE6sJ1XDx7n2evcxfxsVqQD3ijrTIoP7/7PoNmWAeg0K');
 
+DROP TABLE IF EXISTS event_request;
+CREATE TABLE event_request (
+    id INT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(100) DEFAULT NULL,
+    localita VARCHAR(255) DEFAULT NULL,
+    event_date DATE DEFAULT NULL,
+    drink_service VARCHAR(100) NOT NULL DEFAULT 'Non richiesto',
+    event_type VARCHAR(100) NOT NULL,
+    meal VARCHAR(50) DEFAULT NULL,
+    people INT DEFAULT NULL,
+    start_time VARCHAR(5) DEFAULT NULL,
+    end_time VARCHAR(5) DEFAULT NULL,
+    services JSON DEFAULT NULL,
+    message LONGTEXT DEFAULT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;
